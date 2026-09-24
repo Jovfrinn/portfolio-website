@@ -5,12 +5,12 @@ import Button from "../Button";
 import data from "../../data/portfolio.json";
 import { useLanguage } from "../../context/LanguageContext";
 
-const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
+const Header = ({ handleWorkScroll, handleAboutScroll }) => {
   const router = useRouter();
   const { lang, setLang } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
-  const { name, showBlog, showResume } = data;
+  const { name } = data;
 
   useEffect(() => {
     setMounted(true);
@@ -118,67 +118,32 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                   >
                     <Popover.Panel className="absolute right-0 mt-3 w-56 origin-top-right rounded-xl border border-white/10 bg-[#0a0a0a] p-2 shadow-xl focus:outline-none z-40">
                       <div className="flex flex-col gap-1 font-mono text-sm text-zinc-300">
-                        {!isBlog ? (
-                          <>
-                            <button
-                              onClick={() => handleWorkScroll?.()}
-                              className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
-                            >
-                              {t.project}
-                            </button>
-                            <button
-                              onClick={() => handleAboutScroll?.()}
-                              className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
-                            >
-                              {t.about}
-                            </button>
-                            {showBlog && (
-                              <button
-                                onClick={() => router.push("/blog")}
-                                className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
-                              >
-                                Blog
-                              </button>
-                            )}
-                            <button
-                              onClick={handleContactScroll}
-                              className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
-                            >
-                              {t.contact}
-                            </button>
-                            <a
-                              href={lang === "id" ? "/images/Resume-(Indonesia).pdf" : "/images/Resume-(English).pdf"}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors block"
-                            >
-                              {t.resume}
-                            </a>
-                          </>
-                        ) : (
-                          <>
-                            <button
-                              onClick={() => router.push("/")}
-                              className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
-                            >
-                              {t.home}
-                            </button>
-                            {showBlog && (
-                              <button
-                                onClick={() => router.push("/blog")}
-                                className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
-                              >
-                                Blog
-                              </button>
-                            )}
-                            <button
-                              onClick={handleContactScroll}
-                              className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
-                            >
-                              {t.contact}
-                            </button>
-                          </>
-                        )}
+                        <button
+                          onClick={() => handleWorkScroll?.()}
+                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
+                        >
+                          {t.project}
+                        </button>
+                        <button
+                          onClick={() => handleAboutScroll?.()}
+                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
+                        >
+                          {t.about}
+                        </button>
+                        <button
+                          onClick={handleContactScroll}
+                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
+                        >
+                          {t.contact}
+                        </button>
+                        <a
+                          href={lang === "id" ? "/images/Resume-(Indonesia).pdf" : "/images/Resume-(English).pdf"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors block"
+                        >
+                          {t.resume}
+                        </a>
                       </div>
                     </Popover.Panel>
                   </Transition>
@@ -200,75 +165,36 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
           </h1>
 
           <div className="flex items-center gap-6 font-mono text-sm">
-            {!isBlog ? (
-              <>
-                <button
-                  onClick={handleWorkScroll}
-                  className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-                >
-                  {t.project}
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-                </button>
-                <button
-                  onClick={handleAboutScroll}
-                  className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-                >
-                  {t.about}
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-                </button>
-                {showBlog && (
-                  <button
-                    onClick={() => router.push("/blog")}
-                    className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-                  >
-                    Blog
-                    <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-                  </button>
-                )}
-                <button
-                  onClick={handleContactScroll}
-                  className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-                >
-                  {t.contact}
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-                </button>
-                <a
-                  href={lang === "id" ? "/images/Resume-(Indonesia).pdf" : "/images/Resume-(English).pdf"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-                >
-                  {t.resume}
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-                </a>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => router.push("/")}
-                  className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-                >
-                  {t.home}
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-                </button>
-                {showBlog && (
-                  <button
-                    onClick={() => router.push("/blog")}
-                    className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-                  >
-                    Blog
-                    <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-                  </button>
-                )}
-                <button
-                  onClick={handleContactScroll}
-                  className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-                >
-                  {t.contact}
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-                </button>
-              </>
-            )}
+            <button
+              onClick={handleWorkScroll}
+              className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
+            >
+              {t.project}
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
+            </button>
+            <button
+              onClick={handleAboutScroll}
+              className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
+            >
+              {t.about}
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
+            </button>
+            <button
+              onClick={handleContactScroll}
+              className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
+            >
+              {t.contact}
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
+            </button>
+            <a
+              href={lang === "id" ? "/images/Resume-(Indonesia).pdf" : "/images/Resume-(English).pdf"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
+            >
+              {t.resume}
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
+            </a>
 
             {mounted && (
               <div className="flex items-center gap-0.5 border border-white/10 rounded-lg p-0.5 font-mono text-[11px] font-bold">
