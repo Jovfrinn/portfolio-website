@@ -1,79 +1,42 @@
-![thumbnail](https://user-images.githubusercontent.com/16558205/180779213-ea740975-3df1-460a-a964-0a623ee25872.png)
+# Jovfrin Joiner - Portfolio
 
-### Live - https://react-portfolio-template.netlify.app
-### Demo Video - https://www.youtube.com/watch?v=62_HLbx2zLQ&t=9s
-### Open Source UI Components - https://ui.chetanverma.com/
+Personal portfolio site built with Next.js 12 (Pages Router) and Tailwind CSS. All content (hero copy, projects,
+services, tech stack, contact links, SEO settings, and more) is managed through a single-admin `/admin` panel and
+stored in `data/portfolio.json`, which is version-controlled like any other source file.
 
-### Tutorials
+## How content publishing works
 
-Youtube - https://www.youtube.com/watch?v=8cmJ2kR4SpM
+There is no database and no object storage. `/admin` loads the current `data/portfolio.json`, lets you edit every
+section, and stages your changes as a draft in the browser. Pressing **Publish**:
 
-Blog - https://www.chetanverma.com/blog/how-to-build-a-portfolio-website-using-nextjs-and-tailwindcss
+- In production, bundles the edited JSON plus any new/removed WebP images into a single Git commit via GitHub's
+  Git Data API, which pushes straight to the `GITHUB_BRANCH` branch. Vercel is watching that branch and redeploys
+  automatically, so changes go live in about 1-2 minutes.
+- In local development (`NODE_ENV=development`), writes straight to your local filesystem instead, so you can test
+  the whole admin flow without touching GitHub or waiting for a deploy.
 
-### Features - 
+Every publish is validated against the schema in `utils/portfolioSchema.js` first; an invalid document is rejected
+with a clear error instead of ever reaching Git or disk.
 
-- Modern Stack (Next.js + TailwindCSS)
-- Minimal Design
-- Easy To Browse
-- Easy To Customize your details With GUI
-- Blog Crud (Create, Read, Update, Delete blog with easy to use UI).
-- Dark Mode
+## Local setup
 
+1. Clone the repo and install dependencies:
+   ```bash
+   npm install --legacy-peer-deps
+   ```
+2. Copy `.env.example` to `.env.local` and fill in every value (see the comments in that file for what each one is
+   and how to generate it). At minimum for local development you need `ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH`, and
+   `SESSION_SECRET` - the `GITHUB_*` variables are only read in production, since dev-mode publishing writes to
+   your local disk instead.
+3. Run the dev server:
+   ```bash
+   npm run dev
+   ```
+4. Visit `http://localhost:3000` for the public site, or `http://localhost:3000/admin/login` to sign in with the
+   `ADMIN_EMAIL` / plaintext password whose hash you put in `ADMIN_PASSWORD_HASH`.
 
-### Sections
+## Creating your admin account
 
-- Header
-- Work
-- Services
-- About
-- Contact
-- Markdown Blog
-
-
-### How To Use
-
-- Clone this repo
-- run `yarn`
-- `yarn dev`
-
-
-### How To Deploy - 
-
-- There are many ways to Deploy this repo.
-- here we are gonna use netlify
-- Login into netlify with github
-- after login select the forked repo or the repo you want to deploy
-- after selecting netlify will automatially deploy your website.
-
-Quickes way to deploy this repo - 
-
-[![Deploy To Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/chetanverma16/react-portfolio-template)
-
-
-### How To Contribute - 
-
-I would be very happy to review your PRs and all the awesome things that you can improve on this portfolio.
-
-
-### Tech Stack Used - 
-- Next.js
-- TailwindCSS
-
-
-### Thanks
-
-If you liked this portfolio template, don't forget to give it a ⭐.
-
-## Awesome Contributors
-[@Aryan3212](https://github.com/Aryan3212) [@achu-krishna](https://github.com/achu-krishna)
-
-## Supporting
-Many hours of hard work have gone into this project. Your support will be very appreciated!
-
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/chetanverma)
-
-
-
-
-
+There is no signup flow and no database row for the admin user - the single account is defined entirely by two
+env vars. To set (or change) your password:
 

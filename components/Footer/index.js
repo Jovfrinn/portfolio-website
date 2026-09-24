@@ -8,20 +8,11 @@ import { useLanguage } from "../../context/LanguageContext";
 const Footer = ({}) => {
   const { lang } = useLanguage();
 
-  const translations = {
-    en: {
-      title: "Need an internal system?",
-      description: "From purchase requests to approval flows custom built for your company's workflows. Let's discuss.",
-      emailBtn: "Email me"
-    },
-    id: {
-      title: "Punya kebutuhan sistem internal?",
-      description: "Dari purchase request sampai approval flow — bisa dibangun custom sesuai alur kerja perusahaan kamu. Yuk diskusi.",
-      emailBtn: "Email saya"
-    }
+  const t = {
+    title: data.footerCta.title[lang],
+    description: data.footerCta.description[lang],
+    emailBtn: data.footerCta.emailButtonLabel[lang],
   };
-
-  const t = translations[lang] || translations.en;
 
   return (
     <div className="mt-32 tablet:mt-40">
@@ -54,25 +45,24 @@ const Footer = ({}) => {
             {t.emailBtn}
           </button>
 
-          <button
-            onClick={() => window.open("https://fastwork.id/user/jovfrinn")}
-            className="text-sm px-6 py-3.5 rounded-full font-mono font-semibold border border-white/15 text-zinc-200 hover:border-brand-400/60 hover:text-white transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
-          >
-            FastWork
-          </button>
-
-          <button
-            onClick={() => window.open("https://projects.co.id/public/browse_users/view/f8f26b/jovfrinnn")}
-            className="text-sm px-6 py-3.5 rounded-full font-mono font-semibold border border-white/15 text-zinc-200 hover:border-brand-400/60 hover:text-white transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
-          >
-            Projects.co.id
-          </button>
+          {data.socials
+            .filter((social) => social.placement === "footer_cta" && social.published)
+            .sort((a, b) => a.order - b.order)
+            .map((social) => (
+              <button
+                key={social.id}
+                onClick={() => window.open(social.link)}
+                className="text-sm px-6 py-3.5 rounded-full font-mono font-semibold border border-white/15 text-zinc-200 hover:border-brand-400/60 hover:text-white transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+              >
+                {social.title}
+              </button>
+            ))}
         </div>
       </motion.div>
 
       {/* Mini Copyright Footer block */}
       <div className="mt-16 pt-8 border-t border-white/10 flex flex-col tablet:flex-row items-center justify-center gap-4 font-mono text-xs text-zinc-500">
-        <span>© {new Date().getFullYear()} Jovfrin Joiner</span>
+        <span>© {new Date().getFullYear()} {data.footerCopyrightText}</span>
       </div>
     </div>
   );

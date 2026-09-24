@@ -10,29 +10,12 @@ const Header = ({ handleWorkScroll, handleAboutScroll }) => {
   const { lang, setLang } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
-  const { name } = data;
+  const { name, nav } = data;
+  const t = nav[lang] || nav.en;
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const navTranslations = {
-    en: {
-      project: "Projects",
-      about: "About",
-      contact: "Contact",
-      resume: "Resume",
-      home: "Home"
-    },
-    id: {
-      project: "Proyek",
-      about: "Tentang",
-      contact: "Kontak",
-      resume: "Resume",
-      home: "Beranda"
-    }
-  };
-  const t = navTranslations[lang] || navTranslations.en;
 
   const handleContactScroll = () => {
     window.scrollTo({
@@ -136,14 +119,16 @@ const Header = ({ handleWorkScroll, handleAboutScroll }) => {
                         >
                           {t.contact}
                         </button>
-                        <a
-                          href={lang === "id" ? "/images/Resume-(Indonesia).pdf" : "/images/Resume-(English).pdf"}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors block"
-                        >
-                          {t.resume}
-                        </a>
+                        {data.resumeFiles[lang] && (
+                          <a
+                            href={data.resumeFiles[lang]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors block"
+                          >
+                            {t.resume}
+                          </a>
+                        )}
                       </div>
                     </Popover.Panel>
                   </Transition>
@@ -186,15 +171,17 @@ const Header = ({ handleWorkScroll, handleAboutScroll }) => {
               {t.contact}
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
             </button>
-            <a
-              href={lang === "id" ? "/images/Resume-(Indonesia).pdf" : "/images/Resume-(English).pdf"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-            >
-              {t.resume}
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-            </a>
+            {data.resumeFiles[lang] && (
+              <a
+                href={data.resumeFiles[lang]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
+              >
+                {t.resume}
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
+              </a>
+            )}
 
             {mounted && (
               <div className="flex items-center gap-0.5 border border-white/10 rounded-lg p-0.5 font-mono text-[11px] font-bold">

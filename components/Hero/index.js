@@ -88,35 +88,20 @@ const Hero = ({ handleWorkScroll }) => {
   const taglinePrefix = taglineParts[0] || "";
   const taglineSuffix = taglineParts[1] || "";
 
-  const erpStatusesData = {
-    en: [
-      { name: "Web Application Development", status: "active", completed: true },
-      { name: "CRM / CMS Systems", status: "active", completed: true },
-      { name: "E-Learning Platform", status: "active", completed: true },
-      { name: "E-Commerce Platform", status: "active", completed: true },
-      { name: "Mobile Application (React Native)", status: "active", completed: true },
-      { name: "ERP System", status: "in progress", completed: false },
-      { name: "New project", status: "open", completed: false },
-    ],
-    id: [
-      { name: "Pengembangan Aplikasi Web", status: "aktif", completed: true },
-      { name: "Sistem CRM / CMS", status: "aktif", completed: true },
-      { name: "Platform E-Learning", status: "aktif", completed: true },
-      { name: "Platform E-Commerce", status: "aktif", completed: true },
-      { name: "Aplikasi Mobile (React Native)", status: "aktif", completed: true },
-      { name: "Sistem ERP", status: "sedang berjalan", completed: false },
-      { name: "Proyek baru", status: "terbuka", completed: false },
-    ],
+  const STATUS_DISPLAY = {
+    active: { en: "active", id: "aktif" },
+    in_progress: { en: "in progress", id: "sedang berjalan" },
+    open: { en: "open", id: "terbuka" },
   };
 
-  const erpStatuses = erpStatusesData[lang] || erpStatusesData.en;
+  const statusItems = data.statusCard;
 
   return (
     <div
       className="relative overflow-hidden"
       style={{ transform: "translateZ(0)" }}
     >
-      {/* min-height, not a fixed height — content is always allowed to
+      {/* min-height, not a fixed height, content is always allowed to
           grow the box naturally instead of being centered/clipped when
           it's taller than one viewport (longer ID copy, small screens). */}
       <KineticGrid className="!min-h-[100svh]" globalColor="default">
@@ -146,7 +131,7 @@ const Hero = ({ handleWorkScroll }) => {
                 {data.headerTaglineTwo[lang]}
               </motion.h1>
 
-              {/* Fixed-size box for the typewriter line — its word length
+              {/* Fixed-size box for the typewriter line, its word length
                   changes every rotation, so height/width are locked here
                   to the worst-case wrap (up to 3 lines on mobile, 2 on
                   larger screens) so the CTA/status card below never
@@ -171,28 +156,30 @@ const Hero = ({ handleWorkScroll }) => {
               </motion.p>
 
               <motion.div variants={line} className="flex flex-wrap items-center gap-5">
-                <button
-                  onClick={handleWorkScroll}
-                  className="text-sm px-6 py-3.5 rounded-full font-mono font-bold flex items-center gap-2 whitespace-nowrap bg-brand-400 text-zinc-950 transition-all duration-200 hover:bg-brand-300 hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_30px_-8px_rgba(74,158,255,0.7)]"
-                >
-                  {lang === "en" ? "View projects" : "Lihat proyek"} <span>→</span>
-                </button>
-
-                <button
-                  onClick={() =>
-                    window.open(
-                      data.socials.find((s) => s.title === "Email")?.link ||
-                        "mailto:jovfrinjoiner01@gmail.com",
-                    )
-                  }
-                  className="text-sm px-6 py-3.5 rounded-full font-mono font-semibold whitespace-nowrap border border-white/15 text-zinc-200 hover:border-brand-400/60 hover:text-white transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
-                >
-                  {lang === "en" ? "Contact me" : "Hubungi saya"}
-                </button>
+                {data.heroButtons.map((btn, idx) => (
+                  <button
+                    key={btn.id}
+                    onClick={() => {
+                      if (btn.href === "#work") {
+                        handleWorkScroll();
+                      } else {
+                        window.open(btn.href);
+                      }
+                    }}
+                    className={
+                      idx === 0
+                        ? "text-sm px-6 py-3.5 rounded-full font-mono font-bold flex items-center gap-2 whitespace-nowrap bg-brand-400 text-zinc-950 transition-all duration-200 hover:bg-brand-300 hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_30px_-8px_rgba(74,158,255,0.7)]"
+                        : "text-sm px-6 py-3.5 rounded-full font-mono font-semibold whitespace-nowrap border border-white/15 text-zinc-200 hover:border-brand-400/60 hover:text-white transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+                    }
+                  >
+                    {btn[lang === "en" ? "labelEn" : "labelId"]}
+                    {idx === 0 && <span>→</span>}
+                  </button>
+                ))}
               </motion.div>
             </motion.div>
 
-            {/* Floating status card — sits beside the heading on desktop,
+            {/* Floating status card, sits beside the heading on desktop,
                 stacks below the CTAs on mobile/tablet. */}
             <motion.div
               initial={{ opacity: 0, y: 24, rotate: 0 }}
@@ -209,29 +196,27 @@ const Hero = ({ handleWorkScroll }) => {
                     <span className="w-2.5 h-2.5 rounded-full bg-brand-400"></span>
                   </div>
                   <span className="font-mono text-xs text-zinc-500 lowercase tracking-wider">
-                    ~/dev — status
+                    ~/dev/status
                   </span>
                 </div>
                 <div className="space-y-2 font-mono max-h-64 overflow-y-auto">
-                  {erpStatuses.map((item, idx) => (
+                  {statusItems.map((item) => (
                     <div
-                      key={idx}
+                      key={item.id}
                       className="flex items-center justify-between text-xs py-1.5 px-2 hover:bg-white/[0.04] rounded-lg transition-colors duration-150"
                     >
                       <div className="flex items-center gap-2.5">
-                        {item.completed ? (
+                        {item.status === "active" ? (
                           <span className="text-brand-400 font-bold">✓</span>
                         ) : (
                           <span className="text-amber-400 text-[9px] animate-pulse">●</span>
                         )}
-                        <span className="text-zinc-200">{item.name}</span>
+                        <span className="text-zinc-200">{item[lang === "en" ? "labelEn" : "labelId"]}</span>
                       </div>
                       <span
-                        className={`text-[11px] font-semibold ${
-                          item.completed ? "text-brand-400" : "text-amber-400"
-                        }`}
+                        className={"text-[11px] font-semibold " + (item.status === "active" ? "text-brand-400" : "text-amber-400")}
                       >
-                        {item.status}
+                        {STATUS_DISPLAY[item.status][lang]}
                       </span>
                     </div>
                   ))}
