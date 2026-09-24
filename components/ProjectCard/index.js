@@ -1,15 +1,23 @@
-import Link from "next/link";
+import { useRouter } from "next/router";
 import Image from "next/image";
 
 export default function ProjectCard({ project, lang, featuredSpan }) {
+  const router = useRouter();
+  const href = "/projects/" + project.slug;
+
   return (
-    <Link href={"/projects/" + project.slug}>
-      <a
-        className={
-          "glow-card group w-full rounded-2xl border border-white/10 bg-white/[0.02] flex flex-col gap-4 transition-colors duration-300 hover:border-brand-400/30 overflow-hidden " +
-          (featuredSpan ? "laptop:col-span-2" : "")
-        }
-      >
+    <div
+      role="link"
+      tabIndex={0}
+      onClick={() => router.push(href)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") router.push(href);
+      }}
+      className={
+        "glow-card group w-full rounded-2xl border border-white/10 bg-white/[0.02] flex flex-col gap-4 transition-colors duration-300 hover:border-brand-400/30 overflow-hidden cursor-pointer " +
+        (featuredSpan ? "laptop:col-span-2" : "")
+      }
+    >
         <div className="relative w-full aspect-[16/9] bg-white/[0.03]">
           {project.thumbnailThumb ? (
             <Image
@@ -61,7 +69,6 @@ export default function ProjectCard({ project, lang, featuredSpan }) {
             ))}
           </div>
         </div>
-      </a>
-    </Link>
+      </div>
   );
 }
