@@ -1,0 +1,159 @@
+<!doctype html><meta charset="utf-8" /><title>Vectors preview</title>
+<style>
+  body {
+    margin: 0;
+    padding: 24px;
+    background: #f1e4d0;
+    font:
+      14px Nunito,
+      Arial,
+      sans-serif;
+    color: #1f2a37;
+  }
+  h2 {
+    margin: 28px 0 10px;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .laptop {
+    position: relative;
+    width: 520px;
+  }
+  .laptop > img.lid {
+    width: 100%;
+    display: block;
+  }
+  .laptop .st {
+    position: absolute;
+    width: auto;
+  }
+  .nb {
+    position: relative;
+    width: 520px;
+  }
+  .nb > img {
+    width: 100%;
+    display: block;
+  }
+  .env {
+    position: relative;
+    width: 440px;
+  }
+  .env > img {
+    width: 100%;
+    display: block;
+  }
+  .env .seal {
+    position: absolute;
+    left: 50%;
+    top: 61%;
+    width: 84px;
+    transform: translate(-50%, -50%);
+  }
+  .note {
+    position: relative;
+    width: 180px;
+    height: 170px;
+  }
+  .note img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+  }
+  .note span {
+    position: absolute;
+    inset: 18px 22px 36px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font:
+      700 20px Kalam,
+      cursive;
+    transform: rotate(-3deg);
+  }
+  .chip {
+    background: #fff;
+    padding: 6px;
+  }
+</style>
+<h2>Sticky notes</h2>
+<div class="row" id="notes"></div>
+<h2>Binder</h2>
+<div class="nb"><img src="notebook/binder.svg" /></div>
+<h2>MacBook + stiker</h2>
+<div class="laptop" id="lap">
+  <img class="lid" src="macbook/macbook-lid.png" />
+</div>
+<h2>Semua stiker</h2>
+<div class="row" id="stk"></div>
+<h2>Contact</h2>
+<div class="row">
+  <div class="env">
+    <img src="contact/envelope.svg" /><img
+      class="seal"
+      src="contact/wax-seal.svg"
+    />
+  </div>
+  <img src="contact/stamp-github.svg" width="90" /><img
+    src="contact/stamp-linkedin.svg"
+    width="90"
+  /><img src="contact/stamp-whatsapp.svg" width="90" /><img
+    src="contact/stamp-email.svg"
+    width="90"
+  /><img src="contact/postcard.svg" width="420" />
+</div>
+<script>
+  const N = [
+    ["pink", "ERP & Internal System"],
+    ["blue", "Full Stack Web"],
+    ["green", "Database & Integration"],
+    ["white", "Approval Workflow"],
+    ["orange", "Print Layout & Invoice"],
+    ["purple", "Mobile & App Store"],
+  ];
+  notes.innerHTML = N.map(
+    ([c, t], i) =>
+      `<div class="note" style="transform:rotate(${[-2, 1.5, -1, 2, -1.5, 1][i]}deg)"><img src="sticky-notes/note-${c}.svg"><span>${t}</span></div>`,
+  ).join("");
+  const S = [
+    "react",
+    "laravel",
+    "react-native",
+    "mysql",
+    "apple",
+    "php",
+    "nextjs",
+    "typescript",
+    "postgresql",
+    "docker",
+    "git",
+  ];
+  stk.innerHTML = S.map(
+    (s) => `<img src="tech-stickers/${s}.svg" height="110">`,
+  ).join("");
+  const pos = {
+    react: [8, 6, 0.2],
+    laravel: [200, 0, 0.2],
+    "react-native": [340, 8, 0.2],
+    mysql: [4, 150, 0.2],
+    apple: [210, 140, 0.15],
+    php: [330, 150, 0.2],
+    nextjs: [14, 255, 0.25],
+    typescript: [190, 255, 0.2],
+    git: [360, 250, 0.22],
+    postgresql: [20, 310, 0.2],
+    docker: [200, 315, 0.2],
+  };
+  lap.insertAdjacentHTML(
+    "beforeend",
+    S.map((s, i) => {
+      const [x, y] = pos[s];
+      return `<img class="st" src="tech-stickers/${s}.svg" style="left:${x}px;top:${y}px;height:${s == "apple" ? 86 : s == "nextjs" || s == "typescript" || s == "docker" ? 44 : 80}px;transform:rotate(${((i % 5) - 2) * 3}deg)">`;
+    }).join(""),
+  );
+</script>

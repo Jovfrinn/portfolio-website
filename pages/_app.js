@@ -1,6 +1,8 @@
 import "../styles/globals.css";
+import "../components/Hero/hero.css";
 import { useRouter } from "next/router";
 import { LanguageProvider } from "../context/LanguageContext";
+import { WeatherProvider } from "../context/WeatherContext";
 import { AdminDraftProvider } from "../components/admin/AdminDraftContext";
 
 const App = ({ Component, pageProps }) => {
@@ -17,7 +19,9 @@ const App = ({ Component, pageProps }) => {
 
   return (
     <LanguageProvider>
-      <Component {...pageProps} />
+      <WeatherProvider>
+        <Component {...pageProps} />
+      </WeatherProvider>
     </LanguageProvider>
   );
 };

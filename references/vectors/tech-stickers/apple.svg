@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127 148" width="127" height="148">
+<title>Sticker apple</title>
+<defs>
+<filter id="o" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+<feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/>
+<feGaussianBlur in="d" stdDeviation="2.2" result="b"/>
+<feComponentTransfer in="b" result="a"><feFuncA type="linear" slope="14" intercept="-5"/></feComponentTransfer>
+<feFlood flood-color="#fff" result="wf"/><feComposite in="wf" in2="a" operator="in" result="white"/>
+<feDropShadow in="white" dx="0.5" dy="3" stdDeviation="2.5" flood-color="#2a2218" flood-opacity=".35" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter></defs>
+<g filter="url(#o)" transform="translate(18 18)"><svg x="0" y="0" width="91" height="112" viewBox="0 0 256 315" fill="#5d5f66"><path d="M213.803 167.03c.442 47.58 41.74 63.413 42.197 63.615c-.35 1.116-6.599 22.563-21.757 44.716c-13.104 19.153-26.705 38.235-48.13 38.63c-21.05.388-27.82-12.483-51.888-12.483c-24.061 0-31.582 12.088-51.51 12.871c-20.68.783-36.428-20.71-49.64-39.793c-27-39.033-47.633-110.3-19.928-158.406c13.763-23.89 38.36-39.017 65.056-39.405c20.307-.387 39.475 13.662 51.889 13.662c12.406 0 35.699-16.895 60.186-14.414c10.25.427 39.026 4.14 57.503 31.186c-1.49.923-34.335 20.044-33.978 59.822M174.24 50.199c10.98-13.29 18.369-31.79 16.353-50.199c-15.826.636-34.962 10.546-46.314 23.828c-10.173 11.763-19.082 30.589-16.678 48.633c17.64 1.365 35.66-8.964 46.64-22.262"/></svg></g>
+</svg>

@@ -1,8 +1,20 @@
 {
   "name": "Jovfrin Joiner",
   "nav": {
-    "en": { "home": "Home", "project": "Projects", "about": "About", "contact": "Contact", "resume": "Resume" },
-    "id": { "home": "Beranda", "project": "Proyek", "about": "Tentang", "contact": "Kontak", "resume": "Resume" }
+    "en": {
+      "home": "Home",
+      "project": "Projects",
+      "about": "About",
+      "contact": "Contact",
+      "resume": "Resume"
+    },
+    "id": {
+      "home": "Beranda",
+      "project": "Proyek",
+      "about": "Tentang",
+      "contact": "Kontak",
+      "resume": "Resume"
+    }
   },
   "headerTaglineOne": {
     "en": "Available for freelance projects",
@@ -17,145 +29,623 @@
     "id": "Bikin sistem & website yang beneran kepake."
   },
   "headerTaglineThreeRotations": {
-    "en": ["systems & websites", "CRM & CMS", "ERP systems", "e-learning platforms", "mobile apps", "internal systems"],
-    "id": ["sistem & website", "CRM & CMS", "sistem ERP", "platform e-learning", "aplikasi mobile", "sistem internal"]
+    "en": [
+      "systems & websites",
+      "CRM & CMS",
+      "ERP systems",
+      "e-learning platforms",
+      "mobile apps",
+      "internal systems"
+    ],
+    "id": [
+      "sistem & website",
+      "CRM & CMS",
+      "sistem ERP",
+      "platform e-learning",
+      "aplikasi mobile",
+      "sistem internal"
+    ]
   },
   "headerTaglineFour": {
     "en": "Experienced in building ERP, CRM, CMS, e-learning, to mobile apps: end-to-end from database, API, to responsive design.",
     "id": "Berpengalaman bangun ERP, CRM, CMS, e-learning, sampai aplikasi mobile: end-to-end dari database, API, sampai tampilan responsif."
   },
   "heroButtons": [
-    { "id": "1", "labelEn": "View projects", "labelId": "Lihat proyek", "href": "#work" },
-    { "id": "2", "labelEn": "Contact me", "labelId": "Hubungi saya", "href": "mailto:jovfrinjoiner01@gmail.com" }
+    {
+      "id": "1",
+      "labelEn": "View projects",
+      "labelId": "Lihat proyek",
+      "href": "#work"
+    },
+    {
+      "id": "2",
+      "labelEn": "Contact me",
+      "labelId": "Hubungi saya",
+      "href": "mailto:jovfrinjoiner01@gmail.com"
+    }
   ],
   "statusCard": [
-    { "id": "1", "labelEn": "Web Application Development", "labelId": "Pengembangan Aplikasi Web", "status": "active" },
-    { "id": "2", "labelEn": "CRM / CMS Systems", "labelId": "Sistem CRM / CMS", "status": "active" },
-    { "id": "3", "labelEn": "E-Learning Platform", "labelId": "Platform E-Learning", "status": "active" },
-    { "id": "4", "labelEn": "E-Commerce Platform", "labelId": "Platform E-Commerce", "status": "active" },
-    { "id": "5", "labelEn": "Mobile Application (React Native)", "labelId": "Aplikasi Mobile (React Native)", "status": "active" },
-    { "id": "6", "labelEn": "ERP System", "labelId": "Sistem ERP", "status": "in_progress" },
-    { "id": "7", "labelEn": "New project", "labelId": "Proyek baru", "status": "open" }
+    {
+      "id": "1",
+      "labelEn": "Web Application Development",
+      "labelId": "Pengembangan Aplikasi Web",
+      "status": "active"
+    },
+    {
+      "id": "2",
+      "labelEn": "CRM / CMS Systems",
+      "labelId": "Sistem CRM / CMS",
+      "status": "active"
+    },
+    {
+      "id": "3",
+      "labelEn": "E-Learning Platform",
+      "labelId": "Platform E-Learning",
+      "status": "active"
+    },
+    {
+      "id": "4",
+      "labelEn": "E-Commerce Platform",
+      "labelId": "Platform E-Commerce",
+      "status": "active"
+    },
+    {
+      "id": "5",
+      "labelEn": "Mobile Application (React Native)",
+      "labelId": "Aplikasi Mobile (React Native)",
+      "status": "active"
+    },
+    {
+      "id": "6",
+      "labelEn": "ERP System",
+      "labelId": "Sistem ERP",
+      "status": "in_progress"
+    },
+    {
+      "id": "7",
+      "labelEn": "New project",
+      "labelId": "Proyek baru",
+      "status": "open"
+    }
   ],
-  "flags": { "showCursor": false },
+  "flags": {
+    "showCursor": false
+  },
   "socials_section": {
-    "title": { "en": "Let's Connect", "id": "Media Sosial" },
-    "description": { "en": "Find me on my digital profiles. Feel free to connect, collaborate, or just say hello!", "id": "Hubungi saya atau ikuti aktivitas saya di berbagai platform digital berikut." }
+    "title": {
+      "en": "Let's Connect",
+      "id": "Media Sosial"
+    },
+    "description": {
+      "en": "Find me on my digital profiles. Feel free to connect, collaborate, or just say hello!",
+      "id": "Hubungi saya atau ikuti aktivitas saya di berbagai platform digital berikut."
+    }
   },
   "socials": [
-    { "id": "1", "title": "Github", "link": "https://github.com/Jovfrinn", "actionEn": "Follow on GitHub", "actionId": "Ikuti di GitHub", "placement": "connect_grid", "published": true, "order": 0 },
-    { "id": "2", "title": "LinkedIn", "link": "https://www.linkedin.com/in/jovfrin-joiner-elevait-gulo/", "actionEn": "Connect on LinkedIn", "actionId": "Terhubung di LinkedIn", "placement": "connect_grid", "published": true, "order": 1 },
-    { "id": "3", "title": "WhatsApp", "link": "https://wa.me/6281211963047", "actionEn": "Chat on WhatsApp", "actionId": "Chat di WhatsApp", "placement": "connect_grid", "published": true, "order": 2 },
-    { "id": "5", "title": "Email", "link": "mailto:jovfrinjoiner01@gmail.com", "actionEn": "Send an email", "actionId": "Kirim email", "placement": "connect_grid", "published": true, "order": 3 },
-    { "id": "6", "title": "FastWork", "link": "https://fastwork.id/user/jovfrinn", "actionEn": "View on FastWork", "actionId": "Lihat di FastWork", "placement": "footer_cta", "published": true, "order": 4 },
-    { "id": "7", "title": "Projects.co.id", "link": "https://projects.co.id/public/browse_users/view/f8f26b/jovfrinnn", "actionEn": "View on Projects.co.id", "actionId": "Lihat di Projects.co.id", "placement": "footer_cta", "published": true, "order": 5 }
+    {
+      "id": "1",
+      "title": "Github",
+      "link": "https://github.com/Jovfrinn",
+      "actionEn": "Follow on GitHub",
+      "actionId": "Ikuti di GitHub",
+      "placement": "connect_grid",
+      "published": true,
+      "order": 0
+    },
+    {
+      "id": "2",
+      "title": "LinkedIn",
+      "link": "https://www.linkedin.com/in/jovfrin-joiner-elevait-gulo/",
+      "actionEn": "Connect on LinkedIn",
+      "actionId": "Terhubung di LinkedIn",
+      "placement": "connect_grid",
+      "published": true,
+      "order": 1
+    },
+    {
+      "id": "3",
+      "title": "WhatsApp",
+      "link": "https://wa.me/6281211963047",
+      "actionEn": "Chat on WhatsApp",
+      "actionId": "Chat di WhatsApp",
+      "placement": "connect_grid",
+      "published": true,
+      "order": 2
+    },
+    {
+      "id": "5",
+      "title": "Email",
+      "link": "mailto:jovfrinjoiner01@gmail.com",
+      "actionEn": "Send an email",
+      "actionId": "Kirim email",
+      "placement": "connect_grid",
+      "published": true,
+      "order": 3
+    },
+    {
+      "id": "6",
+      "title": "FastWork",
+      "link": "https://fastwork.id/user/jovfrinn",
+      "actionEn": "View on FastWork",
+      "actionId": "Lihat di FastWork",
+      "placement": "footer_cta",
+      "published": true,
+      "order": 4
+    },
+    {
+      "id": "7",
+      "title": "Projects.co.id",
+      "link": "https://projects.co.id/public/browse_users/view/f8f26b/jovfrinnn",
+      "actionEn": "View on Projects.co.id",
+      "actionId": "Lihat di Projects.co.id",
+      "placement": "footer_cta",
+      "published": true,
+      "order": 5
+    }
   ],
   "projects": [
     {
-      "id": "1", "slug": "field-sales-crm", "path": "~/mysales",
-      "title": { "en": "Field Sales CRM (SFA + CRM)", "id": "Field Sales CRM (SFA + CRM)" },
+      "id": "1",
+      "slug": "field-sales-crm",
+      "path": "~/mysales",
+      "title": {
+        "en": "Field Sales CRM (SFA + CRM)",
+        "id": "Field Sales CRM (SFA + CRM)"
+      },
       "description": {
         "en": "Mobile first CRM for FMCG field sales: GPS check-in, ordering, stock tracking, and journey plans with supervisor approval flows.",
         "id": "Aplikasi untuk salesman lapangan industri FMCG: GPS check-in ke outlet, input stok/penjualan/order per kunjungan, journey plan dengan approval flow SPV, dan fitur CRM seperti Customer 360, Interaction Log, dan Follow-up Reminder."
       },
-      "thumbnail": null, "thumbnailThumb": null, "gallery": [],
-      "role": { "en": "", "id": "" }, "duration": "",
-      "problem": { "en": "", "id": "" }, "solution": { "en": "", "id": "" },
-      "features": { "en": [], "id": [] }, "impact": { "en": [], "id": [] },
-      "tags": ["React JS", "Laravel", "MySQL", "Approval Flow", "React Native", "GPS", "REST API"],
-      "link": [
-        { "label": "Frontend", "url": "https://github.com/Jovfrinn/sfa-frontend-web" },
-        { "label": "Backend", "url": "https://github.com/Jovfrinn/sfa-backend" },
-        { "label": "Mobile", "url": "https://github.com/Jovfrinn/sfa-frontend-mobile" }
+      "thumbnail": null,
+      "thumbnailThumb": null,
+      "gallery": [],
+      "role": {
+        "en": "",
+        "id": ""
+      },
+      "duration": "",
+      "problem": {
+        "en": "",
+        "id": ""
+      },
+      "solution": {
+        "en": "",
+        "id": ""
+      },
+      "features": {
+        "en": [],
+        "id": []
+      },
+      "impact": {
+        "en": [],
+        "id": []
+      },
+      "tags": [
+        "React JS",
+        "Laravel",
+        "MySQL",
+        "Approval Flow",
+        "React Native",
+        "GPS",
+        "REST API"
       ],
-      "featured": true, "published": true, "order": 0
+      "link": [
+        {
+          "label": "Frontend",
+          "url": "https://github.com/Jovfrinn/sfa-frontend-web"
+        },
+        {
+          "label": "Backend",
+          "url": "https://github.com/Jovfrinn/sfa-backend"
+        },
+        {
+          "label": "Mobile",
+          "url": "https://github.com/Jovfrinn/sfa-frontend-mobile"
+        }
+      ],
+      "featured": true,
+      "published": true,
+      "order": 0
     },
     {
-      "id": "2", "slug": "enterprise-lms", "path": "~/edutrack",
-      "title": { "en": "Enterprise Learning Management System (E-LMS)", "id": "Enterprise Learning Management System (E-LMS)" },
+      "id": "2",
+      "slug": "enterprise-lms",
+      "path": "~/edutrack",
+      "title": {
+        "en": "Enterprise Learning Management System (E-LMS)",
+        "id": "Enterprise Learning Management System (E-LMS)"
+      },
       "description": {
         "en": "A web-based employee training platform that helps companies manage courses, assess competencies, and monitor HR progress centrally.",
         "id": "Platform pelatihan karyawan berbasis web yang membantu perusahaan mengelola kursus, menilai kompetensi, dan memantau perkembangan SDM secara terpusat."
       },
-      "thumbnail": null, "thumbnailThumb": null, "gallery": [],
-      "role": { "en": "", "id": "" }, "duration": "",
-      "problem": { "en": "", "id": "" }, "solution": { "en": "", "id": "" },
-      "features": { "en": [], "id": [] }, "impact": { "en": [], "id": [] },
-      "tags": ["React JS", "Laravel", "MySQL", "Analytics", "Reporting", "Gamification", "REST API"],
-      "link": [
-        { "label": "Frontend", "url": "https://github.com/Jovfrinn/lms-edutrack-fe" },
-        { "label": "Backend", "url": "https://github.com/Jovfrinn/lms-edutrack-be" }
+      "thumbnail": null,
+      "thumbnailThumb": null,
+      "gallery": [],
+      "role": {
+        "en": "",
+        "id": ""
+      },
+      "duration": "",
+      "problem": {
+        "en": "",
+        "id": ""
+      },
+      "solution": {
+        "en": "",
+        "id": ""
+      },
+      "features": {
+        "en": [],
+        "id": []
+      },
+      "impact": {
+        "en": [],
+        "id": []
+      },
+      "tags": [
+        "React JS",
+        "Laravel",
+        "MySQL",
+        "Analytics",
+        "Reporting",
+        "Gamification",
+        "REST API"
       ],
-      "featured": false, "published": true, "order": 1
+      "link": [
+        {
+          "label": "Frontend",
+          "url": "https://github.com/Jovfrinn/lms-edutrack-fe"
+        },
+        {
+          "label": "Backend",
+          "url": "https://github.com/Jovfrinn/lms-edutrack-be"
+        }
+      ],
+      "featured": false,
+      "published": true,
+      "order": 1
     },
     {
-      "id": "3", "slug": "custom-web-cms", "path": "~/cms",
-      "title": { "en": "Custom Web Content Management System (CMS)", "id": "Custom Web Content Management System (CMS)" },
+      "id": "3",
+      "slug": "custom-web-cms",
+      "path": "~/cms",
+      "title": {
+        "en": "Custom Web Content Management System (CMS)",
+        "id": "Custom Web Content Management System (CMS)"
+      },
       "description": {
         "en": "A web-based content management application to manage information, publish articles, and create dynamic pages without coding, equipped with media manager.",
         "id": "Aplikasi manajemen konten berbasis web untuk mengelola informasi, publikasi artikel, dan halaman dinamis secara instan tanpa koding, dilengkapi dengan media manager dan penataan menu yang fleksibel."
       },
-      "thumbnail": null, "thumbnailThumb": null, "gallery": [],
-      "role": { "en": "", "id": "" }, "duration": "",
-      "problem": { "en": "", "id": "" }, "solution": { "en": "", "id": "" },
-      "features": { "en": [], "id": [] }, "impact": { "en": [], "id": [] },
-      "tags": ["React JS", "Laravel", "MySQL", "REST API"],
-      "link": [{ "label": "Live", "url": "https://smpn64jkt.sch.id/" }],
-      "featured": false, "published": true, "order": 2
+      "thumbnail": null,
+      "thumbnailThumb": null,
+      "gallery": [],
+      "role": {
+        "en": "",
+        "id": ""
+      },
+      "duration": "",
+      "problem": {
+        "en": "",
+        "id": ""
+      },
+      "solution": {
+        "en": "",
+        "id": ""
+      },
+      "features": {
+        "en": [],
+        "id": []
+      },
+      "impact": {
+        "en": [],
+        "id": []
+      },
+      "tags": [
+        "React JS",
+        "Laravel",
+        "MySQL",
+        "REST API"
+      ],
+      "link": [
+        {
+          "label": "Live",
+          "url": "https://smpn64jkt.sch.id/"
+        }
+      ],
+      "featured": false,
+      "published": true,
+      "order": 2
     },
     {
-      "id": "4", "slug": "tefa-ecommerce", "path": "~/tefa",
-      "title": { "en": "E-Commerce Platform for School Teaching Factory (TEFA)", "id": "E-Commerce Platform untuk TEFA Sekolah" },
+      "id": "4",
+      "slug": "tefa-ecommerce",
+      "path": "~/tefa",
+      "title": {
+        "en": "E-Commerce Platform for School Teaching Factory (TEFA)",
+        "id": "E-Commerce Platform untuk TEFA Sekolah"
+      },
       "description": {
         "en": "An e-commerce web application for Teaching Factory (TEFA) business units in schools, allowing customers to check products, stock, prices, and shop online.",
         "id": "Web e-commerce untuk unit usaha Teaching Factory (TEFA) di lingkungan sekolah, supaya pelanggan bisa cek produk, stok, harga, dan belanja online tanpa harus datang langsung."
       },
-      "thumbnail": null, "thumbnailThumb": null, "gallery": [],
-      "role": { "en": "", "id": "" }, "duration": "",
-      "problem": { "en": "", "id": "" }, "solution": { "en": "", "id": "" },
-      "features": { "en": [], "id": [] }, "impact": { "en": [], "id": [] },
-      "tags": ["Blade", "Laravel", "MySQL", "Midtrans"],
-      "link": [{ "label": "Repo", "url": "https://github.com/Jovfrinn/web-dev" }],
-      "featured": false, "published": true, "order": 3
+      "thumbnail": null,
+      "thumbnailThumb": null,
+      "gallery": [],
+      "role": {
+        "en": "",
+        "id": ""
+      },
+      "duration": "",
+      "problem": {
+        "en": "",
+        "id": ""
+      },
+      "solution": {
+        "en": "",
+        "id": ""
+      },
+      "features": {
+        "en": [],
+        "id": []
+      },
+      "impact": {
+        "en": [],
+        "id": []
+      },
+      "tags": [
+        "Blade",
+        "Laravel",
+        "MySQL",
+        "Midtrans"
+      ],
+      "link": [
+        {
+          "label": "Repo",
+          "url": "https://github.com/Jovfrinn/web-dev"
+        }
+      ],
+      "featured": false,
+      "published": true,
+      "order": 3
     },
     {
-      "id": "5", "slug": "cocokin-ai", "path": "~/cocokin",
-      "title": { "en": "Cocokin.ai - Vector Similarity Relationship Calculator", "id": "Cocokin.ai - Kalkulator Keselarasan Hubungan Berbasis Vektor" },
+      "id": "5",
+      "slug": "cocokin-ai",
+      "path": "~/cocokin",
+      "title": {
+        "en": "Cocokin.ai - Vector Similarity Relationship Calculator",
+        "id": "Cocokin.ai - Kalkulator Keselarasan Hubungan Berbasis Vektor"
+      },
       "description": {
         "en": "A premium web application that measures mental alignment and shared principles between two users using Cosine Similarity on N-dimensional preferences.",
         "id": "Aplikasi web premium untuk mengukur tingkat keselarasan dan kesamaan prinsip antara dua pengguna menggunakan metode Cosine Similarity dalam ruang vektor N-dimensi."
       },
-      "thumbnail": null, "thumbnailThumb": null, "gallery": [],
-      "role": { "en": "", "id": "" }, "duration": "",
-      "problem": { "en": "", "id": "" }, "solution": { "en": "", "id": "" },
-      "features": { "en": [], "id": [] }, "impact": { "en": [], "id": [] },
-      "tags": ["React JS", "TypeScript", "Tailwind CSS", "NestJS", "Prisma ORM", "PostgreSQL", "Google OAuth", "Recharts", "Cosine Similarity"],
-      "link": [
-        { "label": "Frontend", "url": "https://github.com/Jovfrinn/cocokin-frontend" },
-        { "label": "Backend", "url": "https://github.com/Jovfrinn/cocokin-backend" }
+      "thumbnail": null,
+      "thumbnailThumb": null,
+      "gallery": [],
+      "role": {
+        "en": "",
+        "id": ""
+      },
+      "duration": "",
+      "problem": {
+        "en": "",
+        "id": ""
+      },
+      "solution": {
+        "en": "",
+        "id": ""
+      },
+      "features": {
+        "en": [],
+        "id": []
+      },
+      "impact": {
+        "en": [],
+        "id": []
+      },
+      "tags": [
+        "React JS",
+        "TypeScript",
+        "Tailwind CSS",
+        "NestJS",
+        "Prisma ORM",
+        "PostgreSQL",
+        "Google OAuth",
+        "Recharts",
+        "Cosine Similarity"
       ],
-      "featured": false, "published": true, "order": 4
+      "link": [
+        {
+          "label": "Frontend",
+          "url": "https://github.com/Jovfrinn/cocokin-frontend"
+        },
+        {
+          "label": "Backend",
+          "url": "https://github.com/Jovfrinn/cocokin-backend"
+        }
+      ],
+      "featured": false,
+      "published": true,
+      "order": 4
     }
   ],
   "services": [
-    { "id": "1", "title": { "en": "ERP & Internal System Development", "id": "Pengembangan ERP & Sistem Internal" }, "description": { "en": "Building custom ERP systems for purchase requests, stock-taking, sales orders, invoicing, and complex approval workflows.", "id": "Membangun sistem ERP custom untuk purchase request, stok opname, mutasi barang, sales order, invoicing, hingga approval flow kompleks." }, "published": true, "order": 0 },
-    { "id": "2", "title": { "en": "Full Stack Web Development", "id": "Pengembangan Web Full Stack" }, "description": { "en": "End-to-end web application development using React/Next.js on frontend, Node.js/PHP on backend, and PostgreSQL/MySQL databases.", "id": "Pengembangan aplikasi web end-to-end menggunakan React/Next.js di frontend, Node.js/PHP di backend, dan database PostgreSQL/MySQL." }, "published": true, "order": 1 },
-    { "id": "3", "title": { "en": "Database Optimization & Integration", "id": "Optimasi & Integrasi Basis Data" }, "description": { "en": "Designing efficient database schemas, data migration, and integrating third-party APIs (payment gateways, shipping, barcode scanners).", "id": "Merancang skema database yang efisien, migrasi data, integrasi API pihak ketiga (payment gateway, kurir, barcode scanner)." }, "published": true, "order": 2 },
-    { "id": "4", "title": { "en": "Custom Approval & Workflow Systems", "id": "Sistem Approval & Workflow Custom" }, "description": { "en": "Automating manual company workflows into digital flows with email/WhatsApp notifications and audit logs.", "id": "Otomatisasi alur kerja manual perusahaan menjadi flow digital dengan notifikasi email/WhatsApp dan log audit lengkap." }, "published": true, "order": 3 },
-    { "id": "5", "title": { "en": "Print Layout & Invoice", "id": "Print Layout & Invoice" }, "description": { "en": "Designing A4 print layouts such as invoices, delivery notes, and official documents with letterhead and signature columns.", "id": "Desain layout cetak A4 seperti invoice, surat jalan, dan dokumen resmi dengan kop surat dan kolom tanda tangan." }, "published": true, "order": 4 },
-    { "id": "6", "title": { "en": "Mobile App & App Store Deployment", "id": "Mobile App & App Store Deployment" }, "description": { "en": "React Native iOS applications from development through publishing on the App Store.", "id": "Aplikasi React Native iOS dari development sampai publish ke App Store." }, "published": true, "order": 5 }
+    {
+      "id": "1",
+      "title": {
+        "en": "ERP & Internal System Development",
+        "id": "Pengembangan ERP & Sistem Internal"
+      },
+      "description": {
+        "en": "Building custom ERP systems for purchase requests, stock-taking, sales orders, invoicing, and complex approval workflows.",
+        "id": "Membangun sistem ERP custom untuk purchase request, stok opname, mutasi barang, sales order, invoicing, hingga approval flow kompleks."
+      },
+      "published": true,
+      "order": 0
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Full Stack Web Development",
+        "id": "Pengembangan Web Full Stack"
+      },
+      "description": {
+        "en": "End-to-end web application development using React/Next.js on frontend, Node.js/PHP on backend, and PostgreSQL/MySQL databases.",
+        "id": "Pengembangan aplikasi web end-to-end menggunakan React/Next.js di frontend, Node.js/PHP di backend, dan database PostgreSQL/MySQL."
+      },
+      "published": true,
+      "order": 1
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Database Optimization & Integration",
+        "id": "Optimasi & Integrasi Basis Data"
+      },
+      "description": {
+        "en": "Designing efficient database schemas, data migration, and integrating third-party APIs (payment gateways, shipping, barcode scanners).",
+        "id": "Merancang skema database yang efisien, migrasi data, integrasi API pihak ketiga (payment gateway, kurir, barcode scanner)."
+      },
+      "published": true,
+      "order": 2
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "Custom Approval & Workflow Systems",
+        "id": "Sistem Approval & Workflow Custom"
+      },
+      "description": {
+        "en": "Automating manual company workflows into digital flows with email/WhatsApp notifications and audit logs.",
+        "id": "Otomatisasi alur kerja manual perusahaan menjadi flow digital dengan notifikasi email/WhatsApp dan log audit lengkap."
+      },
+      "published": true,
+      "order": 3
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "Print Layout & Invoice",
+        "id": "Print Layout & Invoice"
+      },
+      "description": {
+        "en": "Designing A4 print layouts such as invoices, delivery notes, and official documents with letterhead and signature columns.",
+        "id": "Desain layout cetak A4 seperti invoice, surat jalan, dan dokumen resmi dengan kop surat dan kolom tanda tangan."
+      },
+      "published": true,
+      "order": 4
+    },
+    {
+      "id": "6",
+      "title": {
+        "en": "Mobile App & App Store Deployment",
+        "id": "Mobile App & App Store Deployment"
+      },
+      "description": {
+        "en": "React Native iOS applications from development through publishing on the App Store.",
+        "id": "Aplikasi React Native iOS dari development sampai publish ke App Store."
+      },
+      "published": true,
+      "order": 5
+    }
   ],
   "howIWork": {
-    "title": { "en": "How I Work", "id": "Cara Saya Bekerja" },
-    "description": { "en": "A clear step-by-step process from first conversation to post-launch support.", "id": "Alur kerja yang jelas, dari diskusi awal sampai dukungan setelah launching." },
+    "title": {
+      "en": "How I Work",
+      "id": "Cara Saya Bekerja"
+    },
+    "description": {
+      "en": "A clear step-by-step process from first conversation to post-launch support.",
+      "id": "Alur kerja yang jelas, dari diskusi awal sampai dukungan setelah launching."
+    },
     "steps": [
-      { "id": "1", "title": { "en": "Discovery", "id": "Discovery" }, "description": { "en": "Discussing needs and business goals, free initial consultation.", "id": "Diskusi kebutuhan dan tujuan bisnis, konsultasi gratis." }, "order": 0 },
-      { "id": "2", "title": { "en": "Scope & Estimate", "id": "Scope & Estimasi" }, "description": { "en": "SOW, timeline, and cost agreed upon at the start.", "id": "SOW, timeline, dan biaya disepakati di awal." }, "order": 1 },
-      { "id": "3", "title": { "en": "Design", "id": "Design" }, "description": { "en": "Database structure and UI mockups designed before coding.", "id": "Rancangan struktur database dan mockup UI sebelum coding." }, "order": 2 },
-      { "id": "4", "title": { "en": "Development", "id": "Development" }, "description": { "en": "Regular progress updates and a demo at every milestone.", "id": "Progres rutin dan demo di setiap milestone." }, "order": 3 },
-      { "id": "5", "title": { "en": "Testing & Revision", "id": "Testing & Revisi" }, "description": { "en": "Testing together with the client, revisions as agreed.", "id": "Uji bersama klien, revisi sesuai kesepakatan." }, "order": 4 },
-      { "id": "6", "title": { "en": "Launch & Handover", "id": "Launch & Handover" }, "description": { "en": "Deployment, source code handover, documentation, and access.", "id": "Deploy, serah terima source code, dokumentasi, dan akses." }, "order": 5 },
-      { "id": "7", "title": { "en": "Support", "id": "Support" }, "description": { "en": "Bug-fix warranty after launch.", "id": "Garansi perbaikan bug setelah launch." }, "order": 6 }
+      {
+        "id": "1",
+        "title": {
+          "en": "Discovery",
+          "id": "Discovery"
+        },
+        "description": {
+          "en": "Discussing needs and business goals, free initial consultation.",
+          "id": "Diskusi kebutuhan dan tujuan bisnis, konsultasi gratis."
+        },
+        "order": 0
+      },
+      {
+        "id": "2",
+        "title": {
+          "en": "Scope & Estimate",
+          "id": "Scope & Estimasi"
+        },
+        "description": {
+          "en": "SOW, timeline, and cost agreed upon at the start.",
+          "id": "SOW, timeline, dan biaya disepakati di awal."
+        },
+        "order": 1
+      },
+      {
+        "id": "3",
+        "title": {
+          "en": "Design",
+          "id": "Design"
+        },
+        "description": {
+          "en": "Database structure and UI mockups designed before coding.",
+          "id": "Rancangan struktur database dan mockup UI sebelum coding."
+        },
+        "order": 2
+      },
+      {
+        "id": "4",
+        "title": {
+          "en": "Development",
+          "id": "Development"
+        },
+        "description": {
+          "en": "Regular progress updates and a demo at every milestone.",
+          "id": "Progres rutin dan demo di setiap milestone."
+        },
+        "order": 3
+      },
+      {
+        "id": "5",
+        "title": {
+          "en": "Testing & Revision",
+          "id": "Testing & Revisi"
+        },
+        "description": {
+          "en": "Testing together with the client, revisions as agreed.",
+          "id": "Uji bersama klien, revisi sesuai kesepakatan."
+        },
+        "order": 4
+      },
+      {
+        "id": "6",
+        "title": {
+          "en": "Launch & Handover",
+          "id": "Launch & Handover"
+        },
+        "description": {
+          "en": "Deployment, source code handover, documentation, and access.",
+          "id": "Deploy, serah terima source code, dokumentasi, dan akses."
+        },
+        "order": 5
+      },
+      {
+        "id": "7",
+        "title": {
+          "en": "Support",
+          "id": "Support"
+        },
+        "description": {
+          "en": "Bug-fix warranty after launch.",
+          "id": "Garansi perbaikan bug setelah launch."
+        },
+        "order": 6
+      }
     ]
   },
   "aboutpara": {
@@ -163,53 +653,188 @@
     "id": "Halo, saya Jovfrin, Full-Stack Developer lulusan RPL yang lagi lanjut kuliah Sistem Informasi di Universitas Pamulang. Udah berpengalaman bangun CRM, CMS, e-learning, sampai sistem internal perusahaan (ERP), dari desain database, REST API, hingga tampilan yang rapi dan responsif. Saat ini aktif sebagai Full-Stack Developer di PT Univerz Teknologi Utama, sambil terima project freelance. Siap bantu dari nol sampai selesai, konsultasi awal gratis!"
   },
   "techstack": {
-    "title": { "en": "Tech Stack", "id": "Tech Stack" },
-    "description": { "en": "The technologies, frameworks, and tools I use to build robust and scalable systems.", "id": "Teknologi, framework, dan tools yang saya gunakan untuk membangun sistem yang andal dan skalabel." },
+    "title": {
+      "en": "Tech Stack",
+      "id": "Tech Stack"
+    },
+    "description": {
+      "en": "The technologies, frameworks, and tools I use to build robust and scalable systems.",
+      "id": "Teknologi, framework, dan tools yang saya gunakan untuk membangun sistem yang andal dan skalabel."
+    },
     "categories": [
       {
-        "id": "1", "name": { "en": "Languages & Core", "id": "Bahasa Pemrograman" }, "order": 0,
+        "id": "1",
+        "name": {
+          "en": "Languages & Core",
+          "id": "Bahasa Pemrograman"
+        },
+        "order": 0,
         "items": [
-          { "id": "1", "name": "JavaScript", "level": "main" },
-          { "id": "2", "name": "TypeScript", "level": "familiar" },
-          { "id": "3", "name": "PHP", "level": "main" },
-          { "id": "4", "name": "SQL", "level": "main" },
-          { "id": "5", "name": "HTML5 & CSS3", "level": "familiar" },
-          { "id": "6", "name": "Python", "level": "familiar" }
+          {
+            "id": "1",
+            "name": "JavaScript",
+            "level": "main"
+          },
+          {
+            "id": "2",
+            "name": "TypeScript",
+            "level": "main"
+          },
+          {
+            "id": "3",
+            "name": "PHP",
+            "level": "main"
+          },
+          {
+            "id": "4",
+            "name": "SQL",
+            "level": "main"
+          },
+          {
+            "id": "5",
+            "name": "HTML5 & CSS3",
+            "level": "main"
+          },
+          {
+            "id": "6",
+            "name": "Python",
+            "level": "main"
+          }
         ]
       },
       {
-        "id": "2", "name": { "en": "Frameworks & Libraries", "id": "Framework & Library" }, "order": 1,
+        "id": "2",
+        "name": {
+          "en": "Frameworks & Libraries",
+          "id": "Framework & Library"
+        },
+        "order": 1,
         "items": [
-          { "id": "7", "name": "React JS", "level": "main" },
-          { "id": "8", "name": "Next.js", "level": "familiar" },
-          { "id": "9", "name": "Node.js", "level": "familiar" },
-          { "id": "10", "name": "Laravel", "level": "main" },
-          { "id": "11", "name": "React Native", "level": "main" },
-          { "id": "12", "name": "Tailwind CSS", "level": "familiar" },
-          { "id": "13", "name": "Bootstrap", "level": "main" },
-          { "id": "14", "name": "Express.js", "level": "familiar" },
-          { "id": "15", "name": "Nest.js", "level": "familiar" },
-          { "id": "16", "name": "Prisma ORM", "level": "familiar" }
+          {
+            "id": "7",
+            "name": "React JS",
+            "level": "main"
+          },
+          {
+            "id": "8",
+            "name": "Next.js",
+            "level": "main"
+          },
+          {
+            "id": "9",
+            "name": "Node.js",
+            "level": "main"
+          },
+          {
+            "id": "10",
+            "name": "Laravel",
+            "level": "main"
+          },
+          {
+            "id": "11",
+            "name": "React Native",
+            "level": "main"
+          },
+          {
+            "id": "12",
+            "name": "Tailwind CSS",
+            "level": "main"
+          },
+          {
+            "id": "13",
+            "name": "Bootstrap",
+            "level": "main"
+          },
+          {
+            "id": "14",
+            "name": "Express.js",
+            "level": "main"
+          },
+          {
+            "id": "15",
+            "name": "Nest.js",
+            "level": "main"
+          },
+          {
+            "id": "16",
+            "name": "Prisma ORM",
+            "level": "main"
+          }
         ]
       },
       {
-        "id": "3", "name": { "en": "Databases & Storage", "id": "Database & Storage" }, "order": 2,
+        "id": "3",
+        "name": {
+          "en": "Databases & Storage",
+          "id": "Database & Storage"
+        },
+        "order": 2,
         "items": [
-          { "id": "17", "name": "MySQL", "level": "main" },
-          { "id": "18", "name": "PostgreSQL", "level": "familiar" },
-          { "id": "19", "name": "SQL Server", "level": "familiar" },
-          { "id": "20", "name": "Redis", "level": "familiar" }
+          {
+            "id": "17",
+            "name": "MySQL",
+            "level": "main"
+          },
+          {
+            "id": "18",
+            "name": "PostgreSQL",
+            "level": "main"
+          },
+          {
+            "id": "19",
+            "name": "SQL Server",
+            "level": "main"
+          },
+          {
+            "id": "20",
+            "name": "Redis",
+            "level": "familiar"
+          },
+          {
+            "id": "1791346406484",
+            "name": "MongoDB",
+            "level": "familiar"
+          }
         ]
       },
       {
-        "id": "4", "name": { "en": "Tools & DevOps", "id": "Tools & DevOps" }, "order": 3,
+        "id": "4",
+        "name": {
+          "en": "Tools & DevOps",
+          "id": "Tools & DevOps"
+        },
+        "order": 3,
         "items": [
-          { "id": "21", "name": "Git", "level": "main" },
-          { "id": "22", "name": "Docker", "level": "familiar" },
-          { "id": "23", "name": "REST API", "level": "main" },
-          { "id": "24", "name": "Postman", "level": "familiar" },
-          { "id": "25", "name": "Firebase", "level": "familiar" },
-          { "id": "26", "name": "Supabase", "level": "familiar" }
+          {
+            "id": "21",
+            "name": "Git",
+            "level": "main"
+          },
+          {
+            "id": "22",
+            "name": "Docker",
+            "level": "familiar"
+          },
+          {
+            "id": "23",
+            "name": "REST API",
+            "level": "main"
+          },
+          {
+            "id": "24",
+            "name": "Postman",
+            "level": "main"
+          },
+          {
+            "id": "25",
+            "name": "Firebase",
+            "level": "familiar"
+          },
+          {
+            "id": "26",
+            "name": "Supabase",
+            "level": "familiar"
+          }
         ]
       }
     ]
@@ -218,15 +843,28 @@
     "tagline": "",
     "description": "",
     "experiences": [],
-    "education": { "universityName": "", "universityDate": "", "universityPara": "" },
+    "education": {
+      "universityName": "",
+      "universityDate": "",
+      "universityPara": ""
+    },
     "languages": [],
     "frameworks": [],
     "others": []
   },
   "footerCta": {
-    "title": { "en": "Need an internal system?", "id": "Punya kebutuhan sistem internal?" },
-    "description": { "en": "From purchase requests to approval flows custom built for your company's workflows. Let's discuss.", "id": "Dari purchase request sampai approval flow, bisa dibangun custom sesuai alur kerja perusahaan kamu. Yuk diskusi." },
-    "emailButtonLabel": { "en": "Email me", "id": "Email saya" }
+    "title": {
+      "en": "Need an internal system?",
+      "id": "Punya kebutuhan sistem internal?"
+    },
+    "description": {
+      "en": "From purchase requests to approval flows custom built for your company's workflows. Let's discuss.",
+      "id": "Dari purchase request sampai approval flow, bisa dibangun custom sesuai alur kerja perusahaan kamu. Yuk diskusi."
+    },
+    "emailButtonLabel": {
+      "en": "Email me",
+      "id": "Email saya"
+    }
   },
   "footerCopyrightText": "Jovfrin Joiner",
   "seo": {

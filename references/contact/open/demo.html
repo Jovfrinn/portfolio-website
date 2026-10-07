@@ -1,0 +1,26 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Demo amplop terbuka</title>
+<style>
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#fcf9f3;font:600 15px Nunito,Arial,sans-serif;color:#1f2a37}
+.wrap{display:grid;gap:24px;justify-items:center;padding:24px}
+.stack{position:relative;width:min(440px,90vw);aspect-ratio:440/470;cursor:pointer}
+.stack img{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.sealwrap{position:absolute;left:36.36%;top:60.85%;width:27.27%;aspect-ratio:1}
+.sealwrap img{position:absolute;inset:0;width:100%;height:100%;transition:transform .55s cubic-bezier(.3,.7,.3,1),opacity .45s ease}
+.flap{transform-origin:50% 39.15%;transition:transform .25s ease-in}
+#flapOpen{transform:scaleY(0);opacity:0}
+/* z-order bawah ke atas: back, flapOpen, front, flapClosed, seal */
+.stack.open #sealA{transform:translate(-26px,-10px) rotate(-16deg);opacity:0}
+.stack.open #sealB{transform:translate(26px,10px) rotate(14deg);opacity:0}
+.stack.open #flapClosed{transform:scaleY(0);transition-delay:.45s}
+.stack.open #flapOpen{transform:scaleY(1);opacity:1;transition:transform .25s ease-out .7s,opacity 0s .7s}
+@media (prefers-reduced-motion:reduce){.stack *{transition:none!important}}
+button{font:inherit;padding:10px 22px;border:0;border-radius:999px;background:#2f5d56;color:#fff;cursor:pointer}
+</style>
+<div class="wrap"><div class="stack" id="s">
+<img src="1-envelope-back.svg" alt="">
+<img class="flap" id="flapOpen" src="2-flap-open.svg" alt="">
+<img src="4-envelope-front.svg" alt="">
+<img class="flap" id="flapClosed" src="2-flap-closed.svg" alt="">
+<div class="sealwrap"><img id="sealA" src="5-seal-half-a.svg" alt=""><img id="sealB" src="5-seal-half-b.svg" alt=""></div>
+</div><button onclick="s.classList.toggle('open')">Buka / Tutup</button></div>
+<script>s.onclick=()=>s.classList.toggle("open");setTimeout(()=>s.classList.add("open"),600)</script>

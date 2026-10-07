@@ -1,0 +1,447 @@
+.hero-section-wrapper {
+  --cream: #f8f3e8;
+  --ink: #1f2a37;
+  --teal: #2f5d56;
+  --teal-text: #2f5d56;
+  --chip: #efe7d8;
+  background-color: var(--cream);
+  color: var(--ink);
+  transition: background-color 0.8s ease, color 0.8s ease;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-section-wrapper[data-scene="malam"] {
+  --cream: #0f1733;
+  --ink: #eee9dc;
+  --chip: #1d2850;
+  --teal: #3f8f84;
+  --teal-text: #8fd6cb;
+}
+
+.hero-section-wrapper[data-scene="hujan"] {
+  --cream: #c6cbd1;
+  --ink: #1d2733;
+  --chip: #b4bbc3;
+  --teal: #2f5d56;
+  --teal-text: #2b5750;
+}
+
+.hero-wrap {
+  padding-left: max(24px, calc((100vw - 1320px) / 2 + 12px));
+  padding-right: 0;
+  width: 100%;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--ink);
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: clamp(13px, 1.05vw, 16px);
+  line-height: 1;
+  margin-bottom: 24px;
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+.hero-badge svg circle {
+  fill: currentColor;
+}
+
+.hero-badge svg path {
+  stroke: var(--cream);
+  transition: stroke 0.8s ease;
+}
+
+.hero-title {
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  font-size: clamp(44px, 6.2vw, 96px);
+  line-height: 1.05;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin: 0 0 18px;
+  transition: color 0.8s ease;
+}
+
+.hero-sub-main {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: clamp(20px, 2.2vw, 32px);
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 12px;
+  transition: color 0.8s ease;
+}
+
+.hero-sub-desc {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.2vw, 17px);
+  line-height: 1.5;
+  color: var(--ink);
+  opacity: 0.85;
+  max-width: 540px;
+  margin-bottom: 32px;
+  transition: color 0.8s ease, opacity 0.8s ease;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(14px, 1.2vw, 18px) clamp(28px, 2.2vw, 40px);
+  border-radius: 999px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: clamp(15px, 1.15vw, 18px);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.hero-btn:hover {
+  transform: translateY(-2px);
+}
+
+.hero-btn-primary {
+  background: var(--teal);
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(47, 93, 86, 0.25);
+  border: 2px solid transparent;
+}
+
+.hero-btn-primary:hover {
+  box-shadow: 0 12px 24px rgba(47, 93, 86, 0.35);
+}
+
+.hero-btn-outline {
+  color: var(--teal-text) !important;
+  border: 2px solid var(--teal-text);
+  background: transparent;
+}
+
+.hero-btn-outline:hover {
+  background: rgba(47, 93, 86, 0.08);
+}
+
+/* ---------- stage: jendela + orang ---------- */
+.hero-stage {
+  position: relative;
+  width: 100%;
+  max-width: min(920px, calc((100vh - 120px) * 0.95));
+  margin-left: auto;
+  margin-right: 0;
+  aspect-ratio: 785 / 820;
+}
+
+.hero-window {
+  position: absolute;
+  top: 3.2%;
+  left: 20%;
+  width: 80%;
+  height: 68.5%;
+}
+
+.hero-scene {
+  position: absolute;
+  top: 3.6%;
+  left: 4.5%;
+  width: 92.8%;
+  height: 94.3%;
+  object-fit: cover;
+  object-position: 50% 40%;
+  filter: blur(1.4px);
+  animation: sceneIn 0.6s ease;
+}
+
+.hero-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@keyframes sceneIn {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---------- orang: body + kepala + tangan + efek ---------- */
+.hero-person {
+  position: absolute;
+  left: 10.8%;
+  bottom: 0;
+  width: 96.8%;
+  aspect-ratio: 1076 / 664;
+  animation: sceneIn 0.6s ease;
+}
+
+.hp-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hp-fx {
+  overflow: visible;
+}
+
+/* kepala: menoleh tipis ke layar */
+.hp-head {
+  transform-origin: 67.8% 35.4%;
+  animation: headLook 8s ease-in-out infinite;
+}
+
+@keyframes headLook {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  18% {
+    transform: rotate(-2.6deg) translate(-1.5px, 0);
+  }
+  38%, 52% {
+    transform: rotate(1.8deg) translateY(2px);
+  }
+  72% {
+    transform: rotate(-1.2deg) translateY(1px);
+  }
+}
+
+/* tangan: mengetik */
+.hp-hand {
+  transform-origin: 45.5% 70.8%;
+  animation: typing 2.4s ease-in-out infinite;
+}
+
+@keyframes typing {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  8% {
+    transform: translate(0, -3px) rotate(-1.2deg);
+  }
+  16% {
+    transform: translate(0, 0.4px) rotate(0deg);
+  }
+  30% {
+    transform: translate(0.8px, -2.2px) rotate(1deg);
+  }
+  38% {
+    transform: translate(0, 0);
+  }
+  55% {
+    transform: translate(0, -3px) rotate(-0.9deg);
+  }
+  63% {
+    transform: translate(0, 0.5px);
+  }
+  80% {
+    transform: translate(1px, -1.8px) rotate(0.8deg);
+  }
+}
+
+/* layar laptop: baris kode "diketik" */
+.hp-line {
+  fill: var(--line);
+  opacity: 0.92;
+  transform-box: fill-box;
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: codeType 9s ease-out infinite;
+  animation-delay: calc(var(--i) * 0.55s);
+}
+
+@keyframes codeType {
+  0% {
+    transform: scaleX(0);
+    opacity: 0.92;
+  }
+  7% {
+    transform: scaleX(1);
+  }
+  80% {
+    transform: scaleX(1);
+    opacity: 0.92;
+  }
+  90% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+/* uap kopi */
+.hp-steam {
+  opacity: 0;
+  animation: steamRise var(--t, 5.6s) ease-in infinite;
+  animation-delay: var(--d, 0s);
+}
+
+.hp-wisp {
+  fill: none;
+  stroke: var(--steam);
+  stroke-width: 4.4;
+  stroke-linecap: round;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: steamSway 2.6s ease-in-out infinite alternate;
+}
+
+@keyframes steamRise {
+  0% {
+    opacity: 0;
+    transform: translateY(5px) scaleY(0.7);
+  }
+  22% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-46px) scaleY(1.5);
+  }
+}
+
+@keyframes steamSway {
+  from {
+    transform: translateX(-5px) skewX(-9deg);
+  }
+  to {
+    transform: translateX(5px) skewX(9deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hp-head,
+  .hp-hand,
+  .hp-steam,
+  .hp-wisp {
+    animation: none;
+  }
+  .hp-line {
+    animation: none;
+    transform: none;
+  }
+  .hp-steam {
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero-wrap {
+    padding-right: max(24px, calc((100vw - 1320px) / 2 + 12px));
+  }
+  .hero-stage {
+    max-width: 520px;
+    margin: 32px auto 0;
+  }
+}
+
+/* ---------- loading skeleton (fills .hero-stage, zero layout shift) ---------- */
+.hero-skel {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.hero-skel-window {
+  position: absolute;
+  top: 3.2%;
+  left: 20%;
+  width: 80%;
+  height: 68.5%;
+  border-radius: 16px;
+  background: var(--chip);
+  border: 2px solid rgba(31, 42, 55, 0.1);
+  transition: background-color 0.8s ease;
+}
+
+.hero-skel-desk {
+  position: absolute;
+  left: 12%;
+  bottom: 6%;
+  width: 72%;
+  height: 7%;
+  border-radius: 10px;
+  background: var(--chip);
+  opacity: 0.85;
+  transition: background-color 0.8s ease;
+}
+
+.hero-skel-person {
+  position: absolute;
+  left: 32%;
+  bottom: 10%;
+  width: 46%;
+  height: 46%;
+  border-radius: 50% 50% 18% 18%;
+  background: var(--chip);
+  opacity: 0.95;
+  transition: background-color 0.8s ease;
+}
+
+/* Reusable shimmer bar for text-line placeholders (badge/title/subtitle/buttons) */
+.hero-skel-bar {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--chip);
+  transition: background-color 0.8s ease;
+}
+
+.hero-skel::after,
+.hero-skel-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: heroSkelShimmer 1.4s ease-in-out infinite;
+}
+
+.hero-skel-static::after,
+.hero-skel-bar.hero-skel-static::after {
+  animation: none;
+  display: none;
+}
+
+@keyframes heroSkelShimmer {
+  0% {
+    background-position: 160% 0;
+  }
+  100% {
+    background-position: -60% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-skel::after,
+  .hero-skel-bar::after {
+    animation: none;
+    display: none;
+  }
+}

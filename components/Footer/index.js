@@ -1,71 +1,56 @@
-"use client";
-
 import React from "react";
-import { motion } from "framer-motion";
+import { useWeather } from "../../context/WeatherContext";
 import data from "../../data/portfolio.json";
-import { useLanguage } from "../../context/LanguageContext";
 
-const Footer = ({}) => {
-  const { lang } = useLanguage();
+export default function Footer() {
+  const { jakartaTime, weather, isRaining } = useWeather();
+  const currentYear = new Date().getFullYear();
 
-  const t = {
-    title: data.footerCta.title[lang],
-    description: data.footerCta.description[lang],
-    emailBtn: data.footerCta.emailButtonLabel[lang],
-  };
+  // Weather description & icon helper
+  const temp =
+    weather?.temperature !== undefined ? Math.round(weather.temperature) : null;
 
   return (
-    <div className="mt-32 tablet:mt-40">
-      {/* Centered CTA Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 32 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="glow-card w-full p-10 md:p-20 rounded-3xl border border-white/10 bg-white/[0.02] flex flex-col items-center justify-center text-center gap-5 hover:border-brand-400/30 transition-colors duration-300"
-      >
-        <h2 className="font-display text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
-          {t.title}
-        </h2>
-        <p className="text-sm md:text-base text-zinc-400 max-w-xl leading-relaxed">
-          {t.description}
-        </p>
+    <footer className="w-full border-t border-[#2f5d56]/20 bg-[#f8f3e8] transition-colors duration-500">
+      <div className="content-container py-8 flex flex-col tablet:flex-row items-center justify-between gap-4">
+        {/* Left: Jakarta Time & Live Weather */}
+        <div className="flex items-center gap-3 text-sm font-raleway font-semibold text-[#1f2a37]">
+          {/* Clock icon */}
+          <div className="flex items-center gap-1.5">
+            <svg
+              className="w-4 h-4 text-[#2f5d56]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="9" strokeWidth="2" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 7v5l3 2"
+              />
+            </svg>
+            <span>Jakarta {jakartaTime || "12:00"} WIB</span>
+          </div>
 
-        {/* Buttons Group */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mt-6">
-          <button
-            onClick={() =>
-              window.open(
-                data.socials.find((s) => s.title === "Email")?.link ||
-                  "mailto:jovfrinjoiner01@gmail.com"
-              )
-            }
-            className="text-sm px-6 py-3.5 rounded-full font-mono font-bold bg-brand-400 text-zinc-950 transition-all duration-200 hover:bg-brand-300 hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_30px_-8px_rgba(74,158,255,0.7)]"
-          >
-            {t.emailBtn}
-          </button>
+          <span className="text-[#8c8275]">•</span>
 
-          {data.socials
-            .filter((social) => social.placement === "footer_cta" && social.published)
-            .sort((a, b) => a.order - b.order)
-            .map((social) => (
-              <button
-                key={social.id}
-                onClick={() => window.open(social.link)}
-                className="text-sm px-6 py-3.5 rounded-full font-mono font-semibold border border-white/15 text-zinc-200 hover:border-brand-400/60 hover:text-white transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
-              >
-                {social.title}
-              </button>
-            ))}
+          {/* Weather status */}
+          <div className="flex items-center gap-1.5 text-[#2f5d56]">
+            {isRaining ? (
+              <span>🌧️ {temp !== null ? `${temp}°C Rain` : "Rainy"}</span>
+            ) : (
+              <span>☀️ {temp !== null ? `${temp}°C Jakarta` : "Sunny"}</span>
+            )}
+          </div>
         </div>
-      </motion.div>
 
-      {/* Mini Copyright Footer block */}
-      <div className="mt-16 pt-8 border-t border-white/10 flex flex-col tablet:flex-row items-center justify-center gap-4 font-mono text-xs text-zinc-500">
-        <span>© {new Date().getFullYear()} {data.footerCopyrightText}</span>
+        {/* Right: Copyright */}
+        <div className="text-sm font-raleway font-medium text-[#5d6874]">
+          © {currentYear} {data.name}. All rights reserved.
+        </div>
       </div>
-    </div>
+    </footer>
   );
-};
-
-export default Footer;
+}

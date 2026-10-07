@@ -1,94 +1,186 @@
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @import "./markdown.css";
 
-* {
-  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+:root {
+  --ink: #1f2a37;
+  --ink-muted: #4b5563;
+  --teal: #2f5d56;
+  --teal-dark: #244943;
+  --teal-light: #3d776f;
+  --teal-text: #2f5d56;
+  --cream: #f8f3e8;
+  --band-services: #f3e9db;
+  --band-about: #fcf9f3;
+  --page-bg: #f1e4d0;
+  --chip: #efe7d8;
 }
 
-/* Dark tech is the only theme — no light variant. */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background-color: #0a0a0a;
-  color: #f4f4f5;
+  background-color: var(--page-bg);
+  color: var(--ink);
+  font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-.font-mono,
-.code-text {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+/* Font helpers */
+.font-nunito {
+  font-family: "Nunito", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
-/* Hide gradient circles to maintain clean minimalist design */
-.gradient-circle,
-.gradient-circle-bottom {
-  display: none;
-  opacity: 0;
-  pointer-events: none;
+.font-raleway {
+  font-family: "Raleway", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
-.gradient-shadow:hover::before {
-  content: "";
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(-45deg, #18181b 0%, #71717a 100%);
-  transform: translate3d(0px, 20px, 0) scale(0.95);
-  filter: blur(20px);
-  opacity: 0.3;
-  transition: opacity 0.3s;
-  border-radius: inherit;
+.font-kalam {
+  font-family: "Kalam", cursive, sans-serif !important;
 }
 
-.gradient-shadow:hover::after {
-  content: "";
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: inherit;
-  border-radius: inherit;
+/* Full-bleed content container aligned with hero container */
+.content-container {
+  width: 100%;
+  padding-left: max(24px, calc((100vw - 1320px) / 2 + 12px));
+  padding-right: max(24px, calc((100vw - 1320px) / 2 + 12px));
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
+/* Warm card styling */
+.cozy-card {
+  background: #ffffff;
+  border: 1px solid rgba(220, 208, 192, 0.6);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -2px rgba(31, 42, 55, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.animate-blink {
-  animation: blink 1s step-start infinite;
+.cozy-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px -4px rgba(31, 42, 55, 0.1);
+  border-color: rgba(47, 93, 86, 0.3);
 }
 
-/* Glow-border card treatment used across the redesigned sections */
-.glow-card {
+/* Sticky notes styles */
+.sticky-note-wrapper {
   position: relative;
-  isolation: isolate;
+  width: 100%;
+  max-width: 190px;
+  aspect-ratio: 180 / 170;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+  user-select: none;
 }
 
-.glow-card::before {
-  content: "";
+.sticky-note-wrapper img {
   position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(74, 158, 255, 0), rgba(74, 158, 255, 0));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  transition: background 400ms ease;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  z-index: 1;
+  filter: drop-shadow(0 4px 8px rgba(31, 42, 55, 0.08));
 }
 
-.glow-card:hover::before {
-  background: linear-gradient(135deg, rgba(74, 158, 255, 0.9), rgba(74, 158, 255, 0));
+.sticky-note-wrapper .note-text {
+  position: absolute;
+  inset: 16px 20px 32px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Kalam", cursive;
+  font-weight: 700;
+  font-size: clamp(14px, 1.25vw, 18px);
+  line-height: 1.25;
+  color: #1f2a37;
+  transform: rotate(-2.5deg);
 }
 
-.glow-card:hover {
-  box-shadow: 0 0 0 1px rgba(74, 158, 255, 0.08), 0 20px 60px -20px rgba(74, 158, 255, 0.35);
+.sticky-note-wrapper:hover {
+  transform: rotate(0deg) translateY(-6px) scale(1.03) !important;
+  filter: drop-shadow(0 12px 16px rgba(31, 42, 55, 0.14));
 }
 
+/* Notebook styling */
+.notebook-container {
+  position: relative;
+  background-color: #faf6ee;
+  border-radius: 12px;
+  border: 1px solid #dfd3c3;
+  box-shadow: 0 8px 30px rgba(31, 42, 55, 0.08);
+}
+
+/* Tech Stickers on Laptop */
+.macbook-lid-container {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.macbook-lid-container .lid-img {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(0 10px 24px rgba(31, 42, 55, 0.12));
+}
+
+.macbook-lid-container .tech-stk {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
+  transition: transform 0.2s ease;
+}
+
+/* Contact Envelope */
+.envelope-container {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.envelope-container .env-img {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(0 12px 28px rgba(31, 42, 55, 0.12));
+}
+
+.envelope-container .wax-seal {
+  position: absolute;
+  left: 50%;
+  top: 61%;
+  width: 84px;
+  height: 84px;
+  margin-left: -42px;
+  margin-top: -42px;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 12px rgba(36, 73, 67, 0.35));
+}
+
+/* Stamp button */
+.stamp-item {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.stamp-item img {
+  width: 90px;
+  height: auto;
+  filter: drop-shadow(0 4px 10px rgba(31, 42, 55, 0.1));
+  transition: filter 0.2s ease;
+}
+
+.stamp-item:hover {
+  transform: translateY(-5px) scale(1.05);
+}
+
+.stamp-item:hover img {
+  filter: drop-shadow(0 8px 16px rgba(31, 42, 55, 0.18));
+}

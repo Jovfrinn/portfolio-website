@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 170" width="180" height="170">
+<title>Sticky note pink</title>
+<defs>
+<linearGradient id="p" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0" stop-color="#f8c9cc"/><stop offset="1" stop-color="#f1b0b6"/></linearGradient>
+<linearGradient id="f" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f1b0b6"/><stop offset="1" stop-color="#e79aa2"/></linearGradient>
+<filter id="s" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="1.5" dy="5" stdDeviation="4" flood-color="#6b4a2b" flood-opacity=".28"/></filter>
+</defs>
+<g filter="url(#s)">
+<path d="M10 10 L170 8 L172 118 L140 156 L12 158 Z" fill="url(#p)"/>
+<path d="M140 156 L172 118 L150 120 Q142 121 141 130 Z" fill="url(#f)"/>
+<path d="M12 10 L170 8 L170 22 Q92 30 12 24 Z" fill="#fff" opacity=".16"/>
+<path d="M141 130 Q142 121 150 120 L172 118" fill="none" stroke="#000" stroke-opacity=".08"/>
+</g>
+</svg>

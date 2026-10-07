@@ -1,9 +1,9 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: "class",
   theme: {
     screens: {
       mob: "375px",
@@ -14,21 +14,29 @@ module.exports = {
     },
     extend: {
       colors: {
-        brand: {
-          50: "#eef6ff",
-          100: "#d9ebff",
-          200: "#b3d7ff",
-          300: "#7ebcff",
-          400: "#4a9eff",
-          500: "#2e7ef5",
-          600: "#2563eb",
-          700: "#1d4fc4",
-          800: "#1a3f96",
-          900: "#152f6e",
+        ink: {
+          DEFAULT: "#1f2a37",
+          muted: "#4b5563",
+          light: "#6b7280",
         },
+        teal: {
+          DEFAULT: "#2f5d56",
+          dark: "#244943",
+          light: "#3d776f",
+          text: "#2f5d56",
+        },
+        cream: "#f8f3e8",
+        "band-services": "#f3e9db",
+        "band-about": "#fcf9f3",
+        "page-bg": "#f1e4d0",
+        chip: "#efe7d8",
       },
       fontFamily: {
-        display: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        nunito: ["Nunito", "sans-serif"],
+        raleway: ["Raleway", "sans-serif"],
+        kalam: ["Kalam", "cursive"],
+        display: ["Nunito", "sans-serif"],
+        body: ["Raleway", "sans-serif"],
       },
     },
   },

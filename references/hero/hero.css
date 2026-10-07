@@ -1,0 +1,256 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Raleway:wght@500;600&display=swap");
+
+.hero {
+  --cream: #f8f3e8;
+  --ink: #1f2a37;
+  --teal: #2f5d56;
+  --teal-text: #2f5d56;
+  --chip: #efe7d8;
+  background: var(--cream);
+  transition: background-color 0.8s ease, color 0.8s ease;
+  padding: 64px 0 40px;
+  overflow: hidden;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--ink);
+  font: 600 clamp(14px, 1.1vw, 17px)/1 "Raleway", sans-serif;
+  margin-bottom: 28px;
+}
+
+.hero-title {
+  font: 800 clamp(52px, 7vw, 112px) / 1.02 "Nunito", sans-serif;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin: 0 0 20px;
+}
+
+.hero-sub {
+  font: 500 clamp(21px, 2.5vw, 36px) / 1.3 "Raleway", sans-serif;
+  color: var(--ink);
+  max-width: 560px;
+  margin-bottom: 32px;
+}
+
+.hero-btn {
+  display: inline-block;
+  padding: clamp(16px, 1.3vw, 22px) clamp(32px, 2.5vw, 44px);
+  border-radius: 999px;
+  font: 600 clamp(17px, 1.3vw, 21px)/1 "Raleway", sans-serif;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.hero-btn:hover { transform: translateY(-2px); }
+.hero-btn-primary {
+  background: var(--teal);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(47, 93, 86, 0.3);
+}
+.hero-btn-primary:hover { color: #fff; }
+.hero-btn-outline {
+  color: var(--teal-text);
+  border: 2px solid var(--teal-text);
+  background: transparent;
+}
+.hero-btn-outline:hover { color: var(--teal-text); }
+
+/* ---------- stage: jendela + orang ---------- */
+.hero-stage {
+  position: relative;
+  width: 100%;
+  max-width: min(1000px, calc((100vh - 130px) * 0.957));
+  margin-left: auto;
+  margin-right: 0;
+  aspect-ratio: 785 / 820;
+}
+
+.hero-window {
+  position: absolute;
+  top: 3.2%;
+  left: 20%;
+  width: 80%;
+  height: 68.5%;
+}
+
+/* scene duduk di dalam bingkai (frame ~27px dari 620) */
+.hero-scene {
+  position: absolute;
+  top: 3.6%;
+  left: 4.5%;
+  width: 92.8%;
+  height: 94.3%;
+  object-fit: cover;
+  object-position: 50% 40%;
+  animation: sceneIn 0.6s ease;
+}
+
+.hero-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+
+@keyframes sceneIn {
+  from { opacity: 0; transform: scale(1.03); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.hero-switch {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.hero-switch button {
+  border: 0;
+  background: var(--chip);
+  color: var(--ink);
+  font: 600 13px/1 "Raleway", sans-serif;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.hero-switch button.active { background: var(--teal); color: #fff; }
+
+@media (max-width: 991px) {
+  .hero { padding: 40px 0 24px; }
+  .hero-text { text-align: left; }
+}
+
+/* layout: teks sejajar container, gambar mentok kanan layar */
+.hero-wrap {
+  padding-left: max(24px, calc((100vw - 1320px) / 2 + 12px));
+  padding-right: 0;
+}
+.hero-wrap .row { margin-right: 0; }
+.hero-right { padding-right: 0 !important; }
+@media (max-width: 991px) {
+  .hero-wrap { padding-right: 0; }
+  .hero-stage { max-width: 560px; }
+}
+
+/* ---------- orang: body + kepala + tangan + efek ---------- */
+.hero-person {
+  position: absolute;
+  left: 10.8%;
+  bottom: 0;
+  width: 96.8%;
+  aspect-ratio: 1076 / 664;
+  animation: sceneIn 0.6s ease;
+}
+.hp-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.hp-fx { overflow: visible; }
+
+/* kepala: menoleh tipis ke layar */
+.hp-head {
+  transform-origin: 67.8% 35.4%;
+  animation: headLook 8s ease-in-out infinite;
+}
+@keyframes headLook {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  18% { transform: rotate(-2.6deg) translate(-1.5px, 0); }
+  38%, 52% { transform: rotate(1.8deg) translateY(2px); }
+  72% { transform: rotate(-1.2deg) translateY(1px); }
+}
+
+/* tangan: mengetik */
+.hp-hand {
+  transform-origin: 45.5% 70.8%;
+  animation: typing 2.4s ease-in-out infinite;
+}
+@keyframes typing {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  8% { transform: translate(0, -3px) rotate(-1.2deg); }
+  16% { transform: translate(0, 0.4px) rotate(0deg); }
+  30% { transform: translate(0.8px, -2.2px) rotate(1deg); }
+  38% { transform: translate(0, 0); }
+  55% { transform: translate(0, -3px) rotate(-0.9deg); }
+  63% { transform: translate(0, 0.5px); }
+  80% { transform: translate(1px, -1.8px) rotate(0.8deg); }
+}
+
+/* layar laptop: baris kode "diketik" */
+.hp-line {
+  fill: var(--line);
+  opacity: 0.92;
+  transform-box: fill-box;
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: codeType 9s ease-out infinite;
+  animation-delay: calc(var(--i) * 0.55s);
+}
+@keyframes codeType {
+  0% { transform: scaleX(0); opacity: 0.92; }
+  7% { transform: scaleX(1); }
+  80% { transform: scaleX(1); opacity: 0.92; }
+  90% { transform: scaleX(1); opacity: 0; }
+  100% { transform: scaleX(0); opacity: 0; }
+}
+
+/* uap kopi */
+.hp-steam {
+  opacity: 0;
+  animation: steamRise var(--t, 5.6s) ease-in infinite;
+  animation-delay: var(--d, 0s);
+}
+.hp-wisp {
+  fill: none;
+  stroke: var(--steam);
+  stroke-width: 4.4;
+  stroke-linecap: round;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: steamSway 2.6s ease-in-out infinite alternate;
+}
+@keyframes steamRise {
+  0% { opacity: 0; transform: translateY(5px) scaleY(0.7); }
+  22% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-46px) scaleY(1.5); }
+}
+@keyframes steamSway {
+  from { transform: translateX(-5px) skewX(-9deg); }
+  to { transform: translateX(5px) skewX(9deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hp-head, .hp-hand, .hp-steam, .hp-wisp { animation: none; }
+  .hp-line { animation: none; transform: none; }
+  .hp-steam { opacity: 0.5; }
+}
+
+/* ---------- tema per scene ---------- */
+.hero-badge, .hero-switch button { transition: background-color 0.8s ease, color 0.8s ease; }
+.hero-badge svg circle { fill: currentColor; }
+.hero-badge svg path { stroke: var(--cream); }
+
+.hero[data-scene="malam"] {
+  --cream: #0f1733;
+  --ink: #eee9dc;
+  --chip: #1d2850;
+  --teal: #3f8f84;
+  --teal-text: #8fd6cb;
+}
+.hero[data-scene="hujan"] {
+  --cream: #c6cbd1;
+  --ink: #1d2733;
+  --chip: #b4bbc3;
+  --teal: #2f5d56;
+  --teal-text: #2b5750;
+}

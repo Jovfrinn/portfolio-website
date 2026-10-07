@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 430" width="580" height="430">
+<title>MacBook lid (tampak belakang)</title>
+<desc>Tutup laptop kosong, tempel stiker di atasnya. Area aman stiker: x 30-550, y 24-370.</desc>
+<defs>
+<linearGradient id="al" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9b7c0"/><stop offset=".5" stop-color="#a5a3ad"/><stop offset="1" stop-color="#8f8d98"/></linearGradient>
+<linearGradient id="hi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="base" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b5964"/><stop offset="1" stop-color="#3c3a44"/></linearGradient>
+<filter id="sh" x="-10%" y="-10%" width="125%" height="130%"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#2a2218" flood-opacity=".32"/></filter>
+</defs>
+<g filter="url(#sh)">
+<path d="M26 392 L26 46 Q26 14 58 14 L522 14 Q554 14 554 46 L554 392 Z" fill="url(#al)"/>
+<path d="M26 392 L26 46 Q26 14 58 14 L522 14 Q554 14 554 46 L554 392 Z" fill="url(#hi)"/>
+<path d="M26 392 L26 46 Q26 14 58 14 L522 14 Q554 14 554 46 L554 392" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="2"/>
+<path d="M4 392 L576 392 L576 402 Q576 416 560 416 L20 416 Q4 416 4 402 Z" fill="url(#base)"/>
+<path d="M4 392 L576 392 L576 396 L4 396 Z" fill="#fff" opacity=".18"/>
+<path d="M232 392 L348 392 L342 400 L238 400 Z" fill="#2b2a31" opacity=".7"/>
+</g>
+</svg>

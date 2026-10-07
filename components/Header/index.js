@@ -1,217 +1,210 @@
-import { Popover, Transition } from "@headlessui/react";
-import { useRouter } from "next/router";
-import React, { useEffect, useState, Fragment } from "react";
-import Button from "../Button";
-import data from "../../data/portfolio.json";
+import React, { useState, useRef, useLayoutEffect } from "react";
+import Link from "next/link";
 import { useLanguage } from "../../context/LanguageContext";
+import data from "../../data/portfolio.json";
 
-const Header = ({ handleWorkScroll, handleAboutScroll }) => {
-  const router = useRouter();
+export default function Header() {
   const { lang, setLang } = useLanguage();
-  const [mounted, setMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const headerRef = useRef(null);
 
-  const { name, nav } = data;
-  const t = nav[lang] || nav.en;
+  useLayoutEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const setHeight = () => {
+      document.documentElement.style.setProperty("--header-h", `${el.offsetHeight}px`);
+    };
+    setHeight();
+    const observer = new ResizeObserver(setHeight);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [mobileMenuOpen]);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const navLinks = [
+    { label: data.nav[lang].home, href: "#hero" },
+    { label: data.nav[lang].project, href: "#projects" },
+    { label: data.nav[lang].about, href: "#about" },
+    { label: data.nav[lang].contact, href: "#contact" },
+  ];
 
-  const handleContactScroll = () => {
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: "smooth",
-    });
-  };
+  const resumeUrl = data.resumeFiles?.[lang] || "/images/Resume-(English).pdf";
 
-  const formatLogo = (logoText) => {
-    if (logoText.includes("Joiner")) {
-      const [first, second] = logoText.split("Joiner");
-      return (
-        <span>
-          {first}
-          <span className="text-brand-400">Joiner</span>
-          {second}
-        </span>
-      );
+  const handleScrollTo = (e, href) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      setMobileMenuOpen(false);
+      const targetId = href.replace("#", "");
+      if (targetId === "hero") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      const el = document.getElementById(targetId);
+      if (el) {
+        const offset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = el.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
     }
-    return logoText;
   };
 
   return (
-    <>
-      {/* Mobile Header (spans full viewport width, content is padded) */}
-      <div className="block tablet:hidden w-full bg-[#0a0a0a]/70 sticky top-0 z-30 backdrop-blur-md transition-all border-b border-white/10">
-        <div className="flex items-center justify-between h-16 px-6">
-          <h1
-            onClick={() => router.push("/")}
-            className="text-base font-bold font-mono tracking-tight cursor-pointer text-white"
+    <header
+      ref={headerRef}
+      className="w-full fixed top-0 inset-x-0 z-50 bg-[#f8f3e8]/90 backdrop-blur-md border-b border-[#1f2a37]/10 shadow-[0_2px_16px_rgba(31,42,55,0.06)]"
+    >
+      <div className="content-container py-6 flex items-center justify-between">
+        {/* Logo */}
+        <a
+          href="#hero"
+          onClick={(e) => handleScrollTo(e, "#hero")}
+          className="font-nunito font-extrabold text-2xl tracking-tight text-[#1f2a37] hover:opacity-85 transition-opacity"
+        >
+          {data.name}
+        </a>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden laptop:flex items-center gap-8">
+          {navLinks.map((item, idx) => (
+            <a
+              key={idx}
+              href={item.href}
+              onClick={(e) => handleScrollTo(e, item.href)}
+              className="font-raleway font-semibold text-[15px] text-[#1f2a37] opacity-80 hover:opacity-100 hover:text-[#2f5d56] transition-all"
+            >
+              {item.label}
+            </a>
+          ))}
+
+          {/* Resume link */}
+          <a
+            href={resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-raleway font-semibold text-[15px] text-[#1f2a37] opacity-80 hover:opacity-100 hover:text-[#2f5d56] transition-all"
           >
-            {formatLogo(name)}
-          </h1>
+            {data.nav[lang].resume}
+          </a>
 
-          <div className="flex items-center gap-2.5">
-            {mounted && (
-              <div className="flex items-center gap-0.5 border border-white/10 rounded-lg p-0.5 font-mono text-[9px] font-bold">
-                <button
-                  onClick={() => setLang("en")}
-                  className={`px-1.5 py-0.5 rounded transition-all duration-200 ${
-                    lang === "en"
-                      ? "bg-brand-400 text-zinc-950 font-bold"
-                      : "text-zinc-500 hover:text-zinc-300"
-                  }`}
-                >
-                  EN
-                </button>
-                <button
-                  onClick={() => setLang("id")}
-                  className={`px-1.5 py-0.5 rounded transition-all duration-200 ${
-                    lang === "id"
-                      ? "bg-brand-400 text-zinc-950 font-bold"
-                      : "text-zinc-500 hover:text-zinc-300"
-                  }`}
-                >
-                  ID
-                </button>
-              </div>
-            )}
+          {/* Language Switcher Pill */}
+          <div className="flex items-center p-1 rounded-full bg-white border border-[#1f2a37]/15 shadow-[0_1px_6px_rgba(31,42,55,0.08)]">
+            <button
+              type="button"
+              onClick={() => setLang("en")}
+              className={`px-3 py-1 rounded-full text-xs font-raleway font-bold transition-all ${
+                lang === "en"
+                  ? "bg-[#2f5d56] text-white shadow-sm"
+                  : "text-[#1f2a37] opacity-90 hover:opacity-100"
+              }`}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang("id")}
+              className={`px-3 py-1 rounded-full text-xs font-raleway font-bold transition-all ${
+                lang === "id"
+                  ? "bg-[#2f5d56] text-white shadow-sm"
+                  : "text-[#1f2a37] opacity-90 hover:opacity-100"
+              }`}
+            >
+              ID
+            </button>
+          </div>
+        </nav>
 
-            <Popover className="relative">
-              {({ open }) => (
-                <>
-                  <Popover.Button
-                    className="p-2 rounded-lg hover:bg-white/10 transition-colors focus:outline-none"
-                    aria-label="Toggle Navigation Menu"
-                  >
-                    <img
-                      className="h-5 w-5"
-                      src={`/images/${!open ? "menu-white.svg" : "cancel-white.svg"}`}
-                      alt="Menu Toggle"
-                    />
-                  </Popover.Button>
+        {/* Mobile controls: Lang pill + hamburger */}
+        <div className="flex items-center gap-3 laptop:hidden">
+          {/* Mobile Language Switcher */}
+          <div className="flex items-center p-1 rounded-full bg-white border border-[#1f2a37]/15 shadow-[0_1px_6px_rgba(31,42,55,0.08)]">
+            <button
+              type="button"
+              onClick={() => setLang("en")}
+              className={`px-2.5 py-1 rounded-full text-xs font-raleway font-bold transition-all ${
+                lang === "en"
+                  ? "bg-[#2f5d56] text-white shadow-sm"
+                  : "text-[#1f2a37] opacity-90"
+              }`}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang("id")}
+              className={`px-2.5 py-1 rounded-full text-xs font-raleway font-bold transition-all ${
+                lang === "id"
+                  ? "bg-[#2f5d56] text-white shadow-sm"
+                  : "text-[#1f2a37] opacity-90"
+              }`}
+            >
+              ID
+            </button>
+          </div>
 
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-150"
-                    enterFrom="opacity-0 translate-y-1 scale-95"
-                    enterTo="opacity-100 translate-y-0 scale-100"
-                    leave="transition ease-in duration-100"
-                    leaveFrom="opacity-100 translate-y-0 scale-100"
-                    leaveTo="opacity-0 translate-y-1 scale-95"
-                  >
-                    <Popover.Panel className="absolute right-0 mt-3 w-56 origin-top-right rounded-xl border border-white/10 bg-[#0a0a0a] p-2 shadow-xl focus:outline-none z-40">
-                      <div className="flex flex-col gap-1 font-mono text-sm text-zinc-300">
-                        <button
-                          onClick={() => handleWorkScroll?.()}
-                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
-                        >
-                          {t.project}
-                        </button>
-                        <button
-                          onClick={() => handleAboutScroll?.()}
-                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
-                        >
-                          {t.about}
-                        </button>
-                        <button
-                          onClick={handleContactScroll}
-                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors"
-                        >
-                          {t.contact}
-                        </button>
-                        {data.resumeFiles[lang] && (
-                          <a
-                            href={data.resumeFiles[lang]}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full text-left px-3 py-2 rounded-lg hover:bg-white/5 hover:text-white transition-colors block"
-                          >
-                            {t.resume}
-                          </a>
-                        )}
-                      </div>
-                    </Popover.Panel>
-                  </Transition>
-                </>
+          {/* Hamburger button */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 rounded-xl text-[#1f2a37] bg-[#efe7d8] focus:outline-none"
+            aria-label="Toggle Navigation Menu"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {mobileMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2.2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2.2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               )}
-            </Popover>
-          </div>
+            </svg>
+          </button>
         </div>
       </div>
 
-      {/* Desktop Header (spans full viewport width, contents are aligned to container) */}
-      <div className="hidden tablet:block w-full bg-[#0a0a0a]/70 sticky top-0 z-30 backdrop-blur-md transition-all border-b border-white/10">
-        <div className="container mx-auto flex items-center justify-between h-20 px-6 tablet:px-12 laptop:px-16">
-          <h1
-            onClick={() => router.push("/")}
-            className="text-lg font-bold font-mono tracking-tight cursor-pointer transition-all duration-300 hover:tracking-wide text-white"
-          >
-            {formatLogo(name)}
-          </h1>
-
-          <div className="flex items-center gap-6 font-mono text-sm">
-            <button
-              onClick={handleWorkScroll}
-              className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-            >
-              {t.project}
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-            </button>
-            <button
-              onClick={handleAboutScroll}
-              className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-            >
-              {t.about}
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-            </button>
-            <button
-              onClick={handleContactScroll}
-              className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
-            >
-              {t.contact}
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
-            </button>
-            {data.resumeFiles[lang] && (
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div className="laptop:hidden px-6 py-4 bg-[#f8f3e8] border-b border-[#efe7d8] shadow-lg">
+          <div className="flex flex-col gap-4">
+            {navLinks.map((item, idx) => (
               <a
-                href={data.resumeFiles[lang]}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative group pb-1 text-zinc-400 hover:text-brand-400 transition-colors duration-200"
+                key={idx}
+                href={item.href}
+                onClick={(e) => handleScrollTo(e, item.href)}
+                className="font-raleway font-semibold text-lg text-[#1f2a37] py-1"
               >
-                {t.resume}
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300"></span>
+                {item.label}
               </a>
-            )}
-
-            {mounted && (
-              <div className="flex items-center gap-0.5 border border-white/10 rounded-lg p-0.5 font-mono text-[11px] font-bold">
-                <button
-                  onClick={() => setLang("en")}
-                  className={`px-2 py-1 rounded transition-all duration-200 ${
-                    lang === "en"
-                      ? "bg-brand-400 text-zinc-950 font-bold"
-                      : "text-zinc-500 hover:text-zinc-300"
-                  }`}
-                >
-                  EN
-                </button>
-                <button
-                  onClick={() => setLang("id")}
-                  className={`px-2 py-1 rounded transition-all duration-200 ${
-                    lang === "id"
-                      ? "bg-brand-400 text-zinc-950 font-bold"
-                      : "text-zinc-500 hover:text-zinc-300"
-                  }`}
-                >
-                  ID
-                </button>
-              </div>
-            )}
+            ))}
+            <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-raleway font-semibold text-lg text-[#2f5d56] py-1"
+            >
+              {data.nav[lang].resume} ↗
+            </a>
           </div>
         </div>
-      </div>
-    </>
+      )}
+    </header>
   );
-};
-
-export default Header;
+}

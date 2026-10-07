@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 470" width="440" height="470">
+<title>Flap terbuka (menghadap ke atas, sisi dalam)</title>
+<defs><linearGradient id="fi" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#d3c19b"/><stop offset="1" stop-color="#eadcc0"/></linearGradient><filter id="sh" x="-10%" y="-10%" width="125%" height="130%"><feDropShadow dx="2" dy="7" stdDeviation="5" flood-color="#4a3820" flood-opacity=".28"/></filter></defs>
+<g filter="url(#sh)"><path d="M12 184 L12 182 Q12 176 17 173 L212 14 Q220 8 228 14 L423 173 Q428 176 428 182 L428 184 Z" fill="url(#fi)"/></g>
+<path d="M12 184 L212 20 Q220 14 228 20 L428 184" fill="none" stroke="#c4b18b" stroke-width="1.4" opacity=".7"/>
+</svg>

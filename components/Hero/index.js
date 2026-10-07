@@ -1,233 +1,377 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import KineticGrid from "../ui/kinetic-grid";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../../context/LanguageContext";
+import { useHeroReveal } from "./useHeroReveal";
+import HeroSkeleton from "./HeroSkeleton";
+import HeroTextSkeleton from "./HeroTextSkeleton";
 import data from "../../data/portfolio.json";
 
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
-    },
-  },
-};
+const A = "/hero";
+const jendela = `${A}/jendela.svg`;
+const pagi = `${A}/pagi.svg`;
+const siang = `${A}/siang.svg`;
+const sore = `${A}/sore.svg`;
+const malam = `${A}/malam.svg`;
+const hujan = `${A}/hujan.svg`;
 
-const line = {
-  hidden: { opacity: 0, y: 28 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-  },
-};
+const sprite = (part, key) => `${A}/${part}-${key}.webp`;
 
-const Hero = ({ handleWorkScroll }) => {
-  const { lang } = useLanguage();
+const SCENES = [
+  { key: "pagi", label: "Pagi", src: pagi, line: "228,187,155", steam: "255,255,255,.62" },
+  { key: "siang", label: "Siang", src: siang, line: "175,199,215", steam: "255,255,255,.68" },
+  { key: "sore", label: "Sore", src: sore, line: "175,117,86", steam: "255,236,205,.62" },
+  { key: "malam", label: "Malam", src: malam, line: "170,179,218", steam: "205,215,255,.5" },
+  { key: "hujan", label: "Hujan", src: hujan, line: "170,181,186", steam: "235,240,245,.55" },
+];
 
-  const words =
-    data.headerTaglineThreeRotations && data.headerTaglineThreeRotations[lang]
-      ? data.headerTaglineThreeRotations[lang]
-      : ["systems & websites"];
+const SCREEN_POLY =
+  "363,273 561,268 565,296 566,315 557,326 546,348 546,357 551,358 549,367 544,377 533,378 525,397 376,405";
 
-  const [currentText, setCurrentText] = useState(words[0]);
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+const CODE_BARS = [
+  [451, 297, 44, 8],
+  [394, 311, 102, 10],
+  [429, 324, 68, 10],
+  [398, 345, 99, 11],
+  [438, 357, 59, 10],
+  [457, 371, 40, 8],
+  [523, 292, 31, 7],
+  [523, 305, 32, 8],
+  [527, 319, 29, 7],
+  [529, 339, 19, 7],
+  [538, 330, 10, 4],
+];
 
-  useEffect(() => {
-    setCurrentWordIndex(0);
-    setCurrentText(words[0]);
-    setIsDeleting(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang]);
+const STEAM = [
+  { x: -9, d: "0s", t: "5.6s" },
+  { x: 0, d: "-1.9s", t: "6.2s" },
+  { x: 9, d: "-3.7s", t: "5.2s" },
+];
 
-  useEffect(() => {
-    let timer;
-
-    const tick = () => {
-      const fullWord = words[currentWordIndex];
-      if (!fullWord) return;
-
-      if (!isDeleting) {
-        const nextText = fullWord.substring(0, currentText.length + 1);
-        setCurrentText(nextText);
-
-        if (nextText === fullWord) {
-          timer = setTimeout(() => setIsDeleting(true), 2000);
-          return;
-        }
-      } else {
-        const nextText = fullWord.substring(0, currentText.length - 1);
-        setCurrentText(nextText);
-
-        if (nextText === "") {
-          setIsDeleting(false);
-          setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
-          return;
-        }
-      }
+// First-reveal entrance only. Scene-swap remounts (key change) rely on the
+// existing .hero-scene / .hero-person CSS keyframe for their transition, so
+// this never needs to distinguish "first time" vs "swap" itself.
+function revealProps(reducedMotion, { y, scale, duration = 0.5 } = {}) {
+  if (reducedMotion) {
+    return {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      transition: { duration: 0.2, ease: "easeOut" },
     };
-
-    let delay = 100;
-    if (isDeleting) {
-      delay = 50;
-    } else if (currentText === "") {
-      delay = 500;
-    }
-
-    timer = setTimeout(tick, delay);
-    return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentText, isDeleting, currentWordIndex, words]);
-
-  const highlightWord = words[0];
-  const taglineParts = data.headerTaglineThree[lang].split(highlightWord);
-  const taglinePrefix = taglineParts[0] || "";
-  const taglineSuffix = taglineParts[1] || "";
-
-  const STATUS_DISPLAY = {
-    active: { en: "active", id: "aktif" },
-    in_progress: { en: "in progress", id: "sedang berjalan" },
-    open: { en: "open", id: "terbuka" },
+  }
+  return {
+    initial: {
+      opacity: 0,
+      ...(y !== undefined ? { y } : {}),
+      ...(scale !== undefined ? { scale } : {}),
+    },
+    animate: {
+      opacity: 1,
+      ...(y !== undefined ? { y: 0 } : {}),
+      ...(scale !== undefined ? { scale: 1 } : {}),
+    },
+    transition: { duration, ease: "easeOut" },
   };
+}
 
-  const statusItems = data.statusCard;
+// Text content renders immediately (it's just JSON), but its entrance
+// animates in sync with illustration layers 1-2, staggered top to bottom.
+function textRevealProps(reducedMotion, ready, index) {
+  if (reducedMotion) {
+    return {
+      initial: { opacity: 0 },
+      animate: { opacity: ready ? 1 : 0 },
+      transition: { duration: 0.2, ease: "easeOut" },
+    };
+  }
+  return {
+    initial: { opacity: 0, y: 14 },
+    animate: { opacity: ready ? 1 : 0, y: ready ? 0 : 14 },
+    transition: { duration: 0.5, delay: index * 0.12, ease: "easeOut" },
+  };
+}
 
+function Person({ scene, revealStage, reducedMotion }) {
   return (
     <div
-      className="relative overflow-hidden"
-      style={{ transform: "translateZ(0)" }}
+      key={scene.key}
+      className="hero-person"
+      style={{ "--line": `rgb(${scene.line})`, "--steam": `rgba(${scene.steam})` }}
     >
-      {/* min-height, not a fixed height, content is always allowed to
-          grow the box naturally instead of being centered/clipped when
-          it's taller than one viewport (longer ID copy, small screens). */}
-      <KineticGrid className="!min-h-[100svh]" globalColor="default">
-        <div className="container mx-auto px-8 tablet:px-16 laptop:px-24 pt-40 tablet:pt-44 pb-24">
-          <div className="grid grid-cols-1 laptop:grid-cols-12 gap-12 laptop:gap-8 laptop:items-start">
-            <motion.div
-              variants={container}
-              initial="hidden"
-              animate="show"
-              className="laptop:col-span-7"
-            >
-              <motion.p
-                variants={line}
-                className="text-xs tablet:text-sm font-mono tracking-wider text-brand-300 uppercase flex items-center gap-2 font-semibold mb-8"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-400"></span>
-                </span>
-                {data.headerTaglineOne[lang]}
-              </motion.p>
+      {/* Layer 3: table + body */}
+      {revealStage >= 3 && (
+        <motion.div className="absolute inset-0" {...revealProps(reducedMotion, { y: 24, duration: 0.6 })}>
+          <img className="hp-layer" src={sprite("body", scene.key)} alt="Developer sedang coding" />
+        </motion.div>
+      )}
 
-              <motion.h1
-                variants={line}
-                className="font-display text-5xl tablet:text-7xl laptop:text-7xl font-black tracking-tight text-white leading-[0.98] mb-4"
-              >
-                {data.headerTaglineTwo[lang]}
-              </motion.h1>
+      {/* Layer 4: head + hand */}
+      {revealStage >= 4 && (
+        <motion.div className="absolute inset-0" {...revealProps(reducedMotion, { duration: 0.5 })}>
+          <img className="hp-layer hp-head" src={sprite("head", scene.key)} alt="" />
+          <img className="hp-layer hp-hand" src={sprite("hand", scene.key)} alt="" />
+        </motion.div>
+      )}
 
-              {/* Fixed-size box for the typewriter line, its word length
-                  changes every rotation, so height/width are locked here
-                  to the worst-case wrap (up to 3 lines on mobile, 2 on
-                  larger screens) so the CTA/status card below never
-                  shifts while it types. */}
-              <motion.h2
-                variants={line}
-                className="font-display text-3xl tablet:text-5xl laptop:text-5xl font-black tracking-tight leading-[1.05] mb-10 w-full min-h-[96px] tablet:min-h-[112px]"
-              >
-                <span className="text-zinc-300">{taglinePrefix}</span>
-                <span className="text-brand-400">
-                  {currentText}
-                  <span className="ml-1 inline-block w-[3px] h-[0.8em] bg-brand-400 align-middle animate-blink"></span>
-                </span>
-                <span className="text-zinc-300">{taglineSuffix}</span>
-              </motion.h2>
+      {/* Layer 5: fx (steam + code lines) */}
+      {revealStage >= 5 && (
+        <motion.div
+          className="absolute inset-0"
+          style={{ overflow: "visible" }}
+          {...revealProps(reducedMotion, { duration: 0.5 })}
+        >
+          <svg className="hp-layer hp-fx" viewBox="0 0 1076 664" aria-hidden="true">
+            <defs>
+              <clipPath id="hp-screen">
+                <polygon points={SCREEN_POLY} />
+              </clipPath>
+              <filter id="hp-blur" x="-50%" y="-20%" width="200%" height="140%">
+                <feGaussianBlur stdDeviation="1.6" />
+              </filter>
+            </defs>
 
-              <motion.p
-                variants={line}
-                className="text-base tablet:text-lg text-zinc-400 max-w-xl leading-relaxed mb-12"
-              >
-                {data.headerTaglineFour[lang]}
-              </motion.p>
+            <g clipPath="url(#hp-screen)">
+              {CODE_BARS.map(([x, y, w, h], i) => (
+                <rect
+                  key={i}
+                  className="hp-line"
+                  x={x}
+                  y={y}
+                  width={w}
+                  height={h}
+                  rx={h / 2}
+                  style={{ "--i": i }}
+                />
+              ))}
+            </g>
 
-              <motion.div variants={line} className="flex flex-wrap items-center gap-5">
-                {data.heroButtons.map((btn, idx) => (
-                  <button
-                    key={btn.id}
-                    onClick={() => {
-                      if (btn.href === "#work") {
-                        handleWorkScroll();
-                      } else {
-                        window.open(btn.href);
-                      }
-                    }}
-                    className={
-                      idx === 0
-                        ? "text-sm px-6 py-3.5 rounded-full font-mono font-bold flex items-center gap-2 whitespace-nowrap bg-brand-400 text-zinc-950 transition-all duration-200 hover:bg-brand-300 hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_30px_-8px_rgba(74,158,255,0.7)]"
-                        : "text-sm px-6 py-3.5 rounded-full font-mono font-semibold whitespace-nowrap border border-white/15 text-zinc-200 hover:border-brand-400/60 hover:text-white transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
-                    }
-                  >
-                    {btn[lang === "en" ? "labelEn" : "labelId"]}
-                    {idx === 0 && <span>→</span>}
-                  </button>
-                ))}
-              </motion.div>
-            </motion.div>
-
-            {/* Floating status card, sits beside the heading on desktop,
-                stacks below the CTAs on mobile/tablet. */}
-            <motion.div
-              initial={{ opacity: 0, y: 24, rotate: 0 }}
-              animate={{ opacity: 1, y: 0, rotate: -1.5 }}
-              transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ rotate: 0, scale: 1.01 }}
-              className="laptop:col-span-5 laptop:mt-2"
-            >
-              <div className="w-full border border-white/10 rounded-2xl p-6 bg-white/[0.03] backdrop-blur-sm shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)]">
-                <div className="relative flex items-center justify-center pb-4 mb-4 border-b border-white/10">
-                  <div className="absolute left-0 flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-brand-400"></span>
-                  </div>
-                  <span className="font-mono text-xs text-zinc-500 lowercase tracking-wider">
-                    ~/dev/status
-                  </span>
-                </div>
-                <div className="space-y-2 font-mono max-h-64 overflow-y-auto">
-                  {statusItems.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex items-center justify-between text-xs py-1.5 px-2 hover:bg-white/[0.04] rounded-lg transition-colors duration-150"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        {item.status === "active" ? (
-                          <span className="text-brand-400 font-bold">✓</span>
-                        ) : (
-                          <span className="text-amber-400 text-[9px] animate-pulse">●</span>
-                        )}
-                        <span className="text-zinc-200">{item[lang === "en" ? "labelEn" : "labelId"]}</span>
-                      </div>
-                      <span
-                        className={"text-[11px] font-semibold " + (item.status === "active" ? "text-brand-400" : "text-amber-400")}
-                      >
-                        {STATUS_DISPLAY[item.status][lang]}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </KineticGrid>
+            <g transform="translate(297 428)" filter="url(#hp-blur)">
+              {STEAM.map((s, i) => (
+                <g key={i} transform={`translate(${s.x} 0)`}>
+                  <g className="hp-steam" style={{ "--d": s.d, "--t": s.t }}>
+                    <path className="hp-wisp" d="M0 0C-7-9 7-17 0-27S-6-44 1-54" />
+                  </g>
+                </g>
+              ))}
+            </g>
+          </svg>
+        </motion.div>
+      )}
     </div>
   );
-};
+}
 
-export default Hero;
+export default function Hero() {
+  const { lang } = useLanguage();
+  const { ready, scene: activeSceneKey, revealStage, reducedMotion } = useHeroReveal();
+  const current = SCENES.find((s) => s.key === activeSceneKey) || SCENES[1];
+
+  // Rotating tagline text state
+  const rotations = data.headerTaglineThreeRotations?.[lang] || [
+    "systems & websites",
+    "CRM & CMS",
+    "ERP systems",
+  ];
+  const [rotationIndex, setRotationIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setRotationIndex((prev) => (prev + 1) % rotations.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, [rotations.length]);
+
+  const availabilityText = data.headerTaglineOne?.[lang];
+  const heroTitle = data.headerTaglineTwo?.[lang] || "Full-Stack Developer.";
+  const heroSubtitle = data.headerTaglineFour?.[lang];
+
+  // Split title if it contains line break or render neatly
+  const titleParts = heroTitle.split(" ");
+  const firstWord = titleParts.length > 1 ? titleParts[0] : heroTitle;
+  const restWords = titleParts.length > 1 ? titleParts.slice(1).join(" ") : "";
+
+  const handleHeroBtnClick = (e, href) => {
+    if (href?.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.replace("#", "");
+      // Map #work to #projects if needed
+      const actualId = targetId === "work" ? "projects" : targetId;
+      const el = document.getElementById(actualId) || document.getElementById(targetId);
+      if (el) {
+        const offset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = el.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
+  return (
+    <div className="w-full flex items-center min-h-[calc(100vh-80px)] pb-12 pt-4">
+      <div className="hero-wrap">
+        <div className="grid grid-cols-1 laptop:grid-cols-12 items-center gap-8 laptop:gap-4">
+          {/* Left Text Column */}
+          <div className="laptop:col-span-5 flex flex-col items-start pr-4 laptop:pr-0">
+            <AnimatePresence>
+              {!ready && (
+                <HeroTextSkeleton key="hero-text-skeleton" reducedMotion={reducedMotion} />
+              )}
+            </AnimatePresence>
+
+            {ready && (
+            <>
+            {availabilityText && (
+              <motion.div className="hero-badge" {...textRevealProps(reducedMotion, ready, 0)}>
+                <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true">
+                  <circle cx="10" cy="10" r="10" />
+                  <path
+                    d="M5.5 10.3l3 3 6-6.3"
+                    fill="none"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span>{availabilityText}</span>
+              </motion.div>
+            )}
+
+            <motion.h1 className="hero-title" {...textRevealProps(reducedMotion, ready, 1)}>
+              {firstWord}
+              {restWords && (
+                <>
+                  <br />
+                  {restWords}
+                </>
+              )}
+            </motion.h1>
+
+            {/* Main Subtitle with Rotating Keyword */}
+            <motion.div
+              className="hero-sub-main flex flex-wrap items-baseline gap-x-2"
+              {...textRevealProps(reducedMotion, ready, 2)}
+            >
+              <span>
+                {lang === "en" ? "Building" : "Bikin"}
+              </span>
+              <span className="relative inline-block min-w-[21ch] h-[1.3em] overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={rotations[rotationIndex] + lang}
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -14 }}
+                    transition={{ duration: 0.35, ease: "easeInOut" }}
+                    className="inline-block font-extrabold text-[var(--teal-text)]"
+                  >
+                    {rotations[rotationIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+              <span>
+                {lang === "en" ? "that actually get used." : "yang beneran kepake."}
+              </span>
+            </motion.div>
+
+            {/* Description Subtitle */}
+            {heroSubtitle && (
+              <motion.p className="hero-sub-desc" {...textRevealProps(reducedMotion, ready, 3)}>
+                {heroSubtitle}
+              </motion.p>
+            )}
+
+            {/* Buttons */}
+            <motion.div
+              className="flex flex-wrap items-center gap-4"
+              {...textRevealProps(reducedMotion, ready, 4)}
+            >
+              {data.heroButtons && data.heroButtons.length > 0 ? (
+                data.heroButtons.map((btn, idx) => {
+                  const label = lang === "en" ? btn.labelEn : btn.labelId;
+                  const isPrimary = idx === 0;
+                  return (
+                    <a
+                      key={btn.id || idx}
+                      href={btn.href}
+                      onClick={(e) => handleHeroBtnClick(e, btn.href)}
+                      className={`hero-btn ${
+                        isPrimary ? "hero-btn-primary" : "hero-btn-outline"
+                      }`}
+                    >
+                      {label}
+                    </a>
+                  );
+                })
+              ) : (
+                <>
+                  <a
+                    href="#projects"
+                    onClick={(e) => handleHeroBtnClick(e, "#projects")}
+                    className="hero-btn hero-btn-primary"
+                  >
+                    {lang === "en" ? "View projects" : "Lihat proyek"}
+                  </a>
+                  <a
+                    href="#contact"
+                    onClick={(e) => handleHeroBtnClick(e, "#contact")}
+                    className="hero-btn hero-btn-outline"
+                  >
+                    {lang === "en" ? "Contact me" : "Hubungi saya"}
+                  </a>
+                </>
+              )}
+            </motion.div>
+            </>
+            )}
+          </div>
+
+          {/* Right Illustration Column */}
+          <div className="laptop:col-span-7 flex justify-end">
+            <div className="hero-stage" aria-busy={!ready}>
+              <AnimatePresence>
+                {!ready && <HeroSkeleton key="hero-skeleton" reducedMotion={reducedMotion} />}
+              </AnimatePresence>
+
+              {ready && activeSceneKey && (
+                <>
+                  <div className="hero-window">
+                    {/* Layer 1: sky + clouds + buildings */}
+                    {revealStage >= 1 && (
+                      <motion.div
+                        className="absolute inset-0"
+                        {...revealProps(reducedMotion, { scale: 1.04, duration: 0.6 })}
+                      >
+                        <img
+                          key={current.key}
+                          className="hero-scene"
+                          src={current.src}
+                          alt={`Pemandangan ${current.label}`}
+                        />
+                      </motion.div>
+                    )}
+
+                    {/* Layer 2: window frame */}
+                    {revealStage >= 2 && (
+                      <motion.div
+                        className="absolute inset-0"
+                        {...revealProps(reducedMotion, { y: 12, duration: 0.55 })}
+                      >
+                        <img className="hero-frame" src={jendela} alt="" />
+                      </motion.div>
+                    )}
+                  </div>
+                  <Person scene={current} revealStage={revealStage} reducedMotion={reducedMotion} />
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
