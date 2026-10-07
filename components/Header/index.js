@@ -1,12 +1,32 @@
 import React, { useState, useRef, useLayoutEffect } from "react";
 import Link from "next/link";
 import { useLanguage } from "../../context/LanguageContext";
+import { useWeather } from "../../context/WeatherContext";
 import data from "../../data/portfolio.json";
+
+// Mirrors the scene palette in components/Hero/hero.css
+// (.hero-section-wrapper[data-scene="..."]). Exposed as CSS custom
+// properties on <header> so hero.css's global .hero-navbar* rules can theme
+// the navbar on every breakpoint, including desktop.
+const SCENE_THEME = {
+  pagi: { cream: "#f8f3e8", ink: "#1f2a37", chip: "#efe7d8" },
+  siang: { cream: "#f8f3e8", ink: "#1f2a37", chip: "#efe7d8" },
+  sore: { cream: "#f8f3e8", ink: "#1f2a37", chip: "#efe7d8" },
+  malam: { cream: "#0f1733", ink: "#eee9dc", chip: "#1d2850" },
+  hujan: { cream: "#c6cbd1", ink: "#1d2733", chip: "#b4bbc3" },
+};
+const DEFAULT_THEME = SCENE_THEME.siang;
+
+// Appends a hex alpha suffix to a 6-digit hex color, e.g. withAlpha("#f8f3e8", "b3") -> "#f8f3e8b3" (~70%).
+const withAlpha = (hex, alphaHex) => `${hex}${alphaHex}`;
 
 export default function Header() {
   const { lang, setLang } = useLanguage();
+  const { scene } = useWeather();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const headerRef = useRef(null);
+
+  const theme = SCENE_THEME[scene] || DEFAULT_THEME;
 
   useLayoutEffect(() => {
     const el = headerRef.current;
@@ -57,14 +77,20 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className="w-full fixed top-0 inset-x-0 z-50 bg-[#f8f3e8]/90 backdrop-blur-md border-b border-[#1f2a37]/10 shadow-[0_2px_16px_rgba(31,42,55,0.06)]"
+      className="hero-navbar w-full fixed top-0 inset-x-0 z-50 bg-[#f8f3e8]/90 backdrop-blur-md border-b border-[#1f2a37]/10 shadow-[0_2px_16px_rgba(31,42,55,0.06)]"
+      style={{
+        "--nav-cream": withAlpha(theme.cream, "b3"), // ~70% opacity -- transparent + blurred, not solid
+        "--nav-ink": theme.ink, // text stays fully opaque for legibility
+        "--nav-chip": withAlpha(theme.chip, "b3"),
+        "--nav-border": withAlpha(theme.ink, "1a"), // ~10% opacity hairline
+      }}
     >
       <div className="content-container py-6 flex items-center justify-between">
         {/* Logo */}
         <a
           href="#hero"
           onClick={(e) => handleScrollTo(e, "#hero")}
-          className="font-nunito font-extrabold text-2xl tracking-tight text-[#1f2a37] hover:opacity-85 transition-opacity"
+          className="hero-navbar-link font-nunito font-extrabold text-2xl tracking-tight text-[#1f2a37] hover:opacity-85 transition-opacity"
         >
           {data.name}
         </a>
@@ -76,7 +102,7 @@ export default function Header() {
               key={idx}
               href={item.href}
               onClick={(e) => handleScrollTo(e, item.href)}
-              className="font-raleway font-semibold text-[15px] text-[#1f2a37] opacity-80 hover:opacity-100 hover:text-[#2f5d56] transition-all"
+              className="hero-navbar-link font-raleway font-semibold text-[15px] text-[#1f2a37] opacity-80 hover:opacity-100 hover:text-[#2f5d56] transition-all"
             >
               {item.label}
             </a>
@@ -87,7 +113,7 @@ export default function Header() {
             href={resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-raleway font-semibold text-[15px] text-[#1f2a37] opacity-80 hover:opacity-100 hover:text-[#2f5d56] transition-all"
+            className="hero-navbar-link font-raleway font-semibold text-[15px] text-[#1f2a37] opacity-80 hover:opacity-100 hover:text-[#2f5d56] transition-all"
           >
             {data.nav[lang].resume}
           </a>
@@ -151,7 +177,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl text-[#1f2a37] bg-[#efe7d8] focus:outline-none"
+            className="hero-navbar-chip p-2 rounded-xl text-[#1f2a37] bg-[#efe7d8] focus:outline-none"
             aria-label="Toggle Navigation Menu"
           >
             <svg
@@ -182,14 +208,14 @@ export default function Header() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="laptop:hidden px-6 py-4 bg-[#f8f3e8] border-b border-[#efe7d8] shadow-lg">
+        <div className="hero-navbar-drawer laptop:hidden px-6 py-4 bg-[#f8f3e8] border-b border-[#efe7d8] shadow-lg">
           <div className="flex flex-col gap-4">
             {navLinks.map((item, idx) => (
               <a
                 key={idx}
                 href={item.href}
                 onClick={(e) => handleScrollTo(e, item.href)}
-                className="font-raleway font-semibold text-lg text-[#1f2a37] py-1"
+                className="hero-navbar-link font-raleway font-semibold text-lg text-[#1f2a37] py-1"
               >
                 {item.label}
               </a>

@@ -28,7 +28,7 @@ export default function Services() {
         </p>
       </div>
 
-      {/* Sticky Notes Grid */}
+      {/* Sticky Notes Grid with AOS */}
       <div className="grid grid-cols-2 tablet:grid-cols-2 laptop:grid-cols-3 gap-6 items-start justify-items-center">
         {services.map((service, idx) => {
           const color = NOTE_COLORS[idx % NOTE_COLORS.length];
@@ -38,6 +38,9 @@ export default function Services() {
           return (
             <div
               key={service.id || idx}
+              data-aos="zoom-in-up"
+              data-aos-delay={(idx % 3) * 80}
+              data-aos-duration="500"
               className="relative w-full max-w-[200px]"
               onMouseEnter={() => setActiveTooltip(service.id)}
               onMouseLeave={() => setActiveTooltip(null)}
@@ -72,7 +75,6 @@ export default function Services() {
                     className="absolute left-1/2 bottom-full mb-3 -translate-x-1/2 z-30 w-56 p-3.5 rounded-xl bg-[#1f2a37] text-white shadow-xl text-xs font-raleway leading-relaxed pointer-events-none text-center border border-white/10"
                   >
                     {service.description[lang]}
-                    {/* Tooltip arrow */}
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#1f2a37]" />
                   </motion.div>
                 )}

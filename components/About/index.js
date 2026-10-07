@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import { useLanguage } from "../../context/LanguageContext";
 import data from "../../data/portfolio.json";
 
@@ -29,7 +28,11 @@ export default function About() {
       </div>
 
       {/* Main Profile Card */}
-      <div className="rounded-2xl bg-white border border-[#e5dac8] p-5 tablet:p-6 shadow-[0_4px_24px_rgba(31,42,55,0.05)] mb-5">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="550"
+        className="rounded-2xl bg-white border border-[#e5dac8] p-5 tablet:p-6 shadow-[0_4px_24px_rgba(31,42,55,0.05)] mb-5"
+      >
         <div className="flex flex-col tablet:flex-row items-center tablet:items-start gap-4">
           {/* Profile Photo */}
           <div className="relative w-20 h-20 tablet:w-24 tablet:h-24 rounded-xl overflow-hidden shrink-0 bg-[#efe7d8] border-2 border-[#dfd3c3] shadow-inner">
@@ -106,7 +109,12 @@ export default function About() {
       </div>
 
       {/* Bio Paragraph */}
-      <p className="font-raleway font-medium text-sm tablet:text-[15px] text-[#4b5563] leading-relaxed bg-[#faf6ee] p-5 rounded-xl border border-[#ebdccb]">
+      <p
+        data-aos="fade-up"
+        data-aos-delay="100"
+        data-aos-duration="550"
+        className="font-raleway font-medium text-sm tablet:text-[15px] text-[#4b5563] leading-relaxed bg-[#faf6ee] p-5 rounded-xl border border-[#ebdccb]"
+      >
         {data.aboutpara[lang]}
       </p>
     </div>

@@ -39,11 +39,14 @@ export default function TechStack() {
         )}
       </div>
 
-      {/* Categorized Tech Chips */}
+      {/* Categorized Tech Chips with AOS */}
       <div className="grid grid-cols-1 tablet:grid-cols-2 gap-5 mb-10">
-        {categories.map((category) => (
+        {categories.map((category, idx) => (
           <div
             key={category.id}
+            data-aos="fade-up"
+            data-aos-delay={(idx % 2) * 100}
+            data-aos-duration="500"
             className="p-5 rounded-2xl bg-white border border-[#e5dac8] shadow-[0_2px_12px_rgba(31,42,55,0.03)]"
           >
             <h3 className="font-nunito font-bold text-base text-[#1f2a37] mb-3 flex items-center gap-2">
@@ -93,6 +96,8 @@ export function MacbookShowcase() {
       </span>
 
       <div
+        data-aos="zoom-in"
+        data-aos-duration="600"
         className="relative w-full max-w-[420px] aspect-[580/430] mx-auto select-none pointer-events-none"
         aria-hidden="true"
       >
@@ -105,7 +110,6 @@ export function MacbookShowcase() {
 
         {/* Stickers positioned precisely on top of the lid */}
         {STICKERS.map((stk, idx) => {
-          // Percentages relative to 580 x 430
           const leftPct = (stk.x / 580) * 100;
           const topPct = (stk.y / 430) * 100;
           const heightPct = (stk.h / 430) * 100;

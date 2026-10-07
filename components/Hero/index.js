@@ -47,32 +47,6 @@ const STEAM = [
   { x: 9, d: "-3.7s", t: "5.2s" },
 ];
 
-// First-reveal entrance only. Scene-swap remounts (key change) rely on the
-// existing .hero-scene / .hero-person CSS keyframe for their transition, so
-// this never needs to distinguish "first time" vs "swap" itself.
-function revealProps(reducedMotion, { y, scale, duration = 0.5 } = {}) {
-  if (reducedMotion) {
-    return {
-      initial: { opacity: 0 },
-      animate: { opacity: 1 },
-      transition: { duration: 0.2, ease: "easeOut" },
-    };
-  }
-  return {
-    initial: {
-      opacity: 0,
-      ...(y !== undefined ? { y } : {}),
-      ...(scale !== undefined ? { scale } : {}),
-    },
-    animate: {
-      opacity: 1,
-      ...(y !== undefined ? { y: 0 } : {}),
-      ...(scale !== undefined ? { scale: 1 } : {}),
-    },
-    transition: { duration, ease: "easeOut" },
-  };
-}
-
 // Text content renders immediately (it's just JSON), but its entrance
 // animates in sync with illustration layers 1-2, staggered top to bottom.
 function textRevealProps(reducedMotion, ready, index) {
@@ -90,79 +64,59 @@ function textRevealProps(reducedMotion, ready, index) {
   };
 }
 
-function Person({ scene, revealStage, reducedMotion }) {
+function Person({ scene }) {
   return (
     <div
       key={scene.key}
       className="hero-person"
       style={{ "--line": `rgb(${scene.line})`, "--steam": `rgba(${scene.steam})` }}
     >
-      {/* Layer 3: table + body */}
-      {revealStage >= 3 && (
-        <motion.div className="absolute inset-0" {...revealProps(reducedMotion, { y: 24, duration: 0.6 })}>
-          <img className="hp-layer" src={sprite("body", scene.key)} alt="Developer sedang coding" />
-        </motion.div>
-      )}
+      <img className="hp-layer" src={sprite("body", scene.key)} alt="Developer sedang coding" />
+      <img className="hp-layer hp-head" src={sprite("head", scene.key)} alt="" />
+      <img className="hp-layer hp-hand" src={sprite("hand", scene.key)} alt="" />
 
-      {/* Layer 4: head + hand */}
-      {revealStage >= 4 && (
-        <motion.div className="absolute inset-0" {...revealProps(reducedMotion, { duration: 0.5 })}>
-          <img className="hp-layer hp-head" src={sprite("head", scene.key)} alt="" />
-          <img className="hp-layer hp-hand" src={sprite("hand", scene.key)} alt="" />
-        </motion.div>
-      )}
+      <svg className="hp-layer hp-fx" viewBox="0 0 1076 664" aria-hidden="true">
+        <defs>
+          <clipPath id="hp-screen">
+            <polygon points={SCREEN_POLY} />
+          </clipPath>
+          <filter id="hp-blur" x="-50%" y="-20%" width="200%" height="140%">
+            <feGaussianBlur stdDeviation="1.6" />
+          </filter>
+        </defs>
 
-      {/* Layer 5: fx (steam + code lines) */}
-      {revealStage >= 5 && (
-        <motion.div
-          className="absolute inset-0"
-          style={{ overflow: "visible" }}
-          {...revealProps(reducedMotion, { duration: 0.5 })}
-        >
-          <svg className="hp-layer hp-fx" viewBox="0 0 1076 664" aria-hidden="true">
-            <defs>
-              <clipPath id="hp-screen">
-                <polygon points={SCREEN_POLY} />
-              </clipPath>
-              <filter id="hp-blur" x="-50%" y="-20%" width="200%" height="140%">
-                <feGaussianBlur stdDeviation="1.6" />
-              </filter>
-            </defs>
+        <g clipPath="url(#hp-screen)">
+          {CODE_BARS.map(([x, y, w, h], i) => (
+            <rect
+              key={i}
+              className="hp-line"
+              x={x}
+              y={y}
+              width={w}
+              height={h}
+              rx={h / 2}
+              style={{ "--i": i }}
+            />
+          ))}
+        </g>
 
-            <g clipPath="url(#hp-screen)">
-              {CODE_BARS.map(([x, y, w, h], i) => (
-                <rect
-                  key={i}
-                  className="hp-line"
-                  x={x}
-                  y={y}
-                  width={w}
-                  height={h}
-                  rx={h / 2}
-                  style={{ "--i": i }}
-                />
-              ))}
+        <g transform="translate(297 428)" filter="url(#hp-blur)">
+          {STEAM.map((s, i) => (
+            <g key={i} transform={`translate(${s.x} 0)`}>
+              <g className="hp-steam" style={{ "--d": s.d, "--t": s.t }}>
+                <path className="hp-wisp" d="M0 0C-7-9 7-17 0-27S-6-44 1-54" />
+              </g>
             </g>
-
-            <g transform="translate(297 428)" filter="url(#hp-blur)">
-              {STEAM.map((s, i) => (
-                <g key={i} transform={`translate(${s.x} 0)`}>
-                  <g className="hp-steam" style={{ "--d": s.d, "--t": s.t }}>
-                    <path className="hp-wisp" d="M0 0C-7-9 7-17 0-27S-6-44 1-54" />
-                  </g>
-                </g>
-              ))}
-            </g>
-          </svg>
-        </motion.div>
-      )}
+          ))}
+        </g>
+      </svg>
     </div>
   );
 }
 
 export default function Hero() {
   const { lang } = useLanguage();
-  const { ready, scene: activeSceneKey, revealStage, reducedMotion } = useHeroReveal();
+  const { ready, scene: activeSceneKey, reducedMotion } = useHeroReveal();
   const current = SCENES.find((s) => s.key === activeSceneKey) || SCENES[1];
 
   // Rotating tagline text state
@@ -212,11 +166,11 @@ export default function Hero() {
   };
 
   return (
-    <div className="w-full flex items-center min-h-[calc(100vh-80px)] pb-12 pt-4">
+    <div className="w-full flex items-center">
       <div className="hero-wrap">
-        <div className="grid grid-cols-1 laptop:grid-cols-12 items-center gap-8 laptop:gap-4">
+        <div className="hero-grid grid grid-cols-1 laptop:grid-cols-12 items-center gap-8 laptop:gap-4">
           {/* Left Text Column */}
-          <div className="laptop:col-span-5 flex flex-col items-start pr-4 laptop:pr-0">
+          <div className="hero-text-col laptop:col-span-5 flex flex-col items-start pr-4 laptop:pr-0">
             <AnimatePresence>
               {!ready && (
                 <HeroTextSkeleton key="hero-text-skeleton" reducedMotion={reducedMotion} />
@@ -287,7 +241,7 @@ export default function Hero() {
 
             {/* Buttons */}
             <motion.div
-              className="flex flex-wrap items-center gap-4"
+              className="hero-btn-row flex flex-wrap items-center gap-4"
               {...textRevealProps(reducedMotion, ready, 4)}
             >
               {data.heroButtons && data.heroButtons.length > 0 ? (
@@ -331,7 +285,7 @@ export default function Hero() {
           </div>
 
           {/* Right Illustration Column */}
-          <div className="laptop:col-span-7 flex justify-end">
+          <div className="hero-illustration-col laptop:col-span-7 flex justify-end">
             <div className="hero-stage" aria-busy={!ready}>
               <AnimatePresence>
                 {!ready && <HeroSkeleton key="hero-skeleton" reducedMotion={reducedMotion} />}
@@ -340,32 +294,15 @@ export default function Hero() {
               {ready && activeSceneKey && (
                 <>
                   <div className="hero-window">
-                    {/* Layer 1: sky + clouds + buildings */}
-                    {revealStage >= 1 && (
-                      <motion.div
-                        className="absolute inset-0"
-                        {...revealProps(reducedMotion, { scale: 1.04, duration: 0.6 })}
-                      >
-                        <img
-                          key={current.key}
-                          className="hero-scene"
-                          src={current.src}
-                          alt={`Pemandangan ${current.label}`}
-                        />
-                      </motion.div>
-                    )}
-
-                    {/* Layer 2: window frame */}
-                    {revealStage >= 2 && (
-                      <motion.div
-                        className="absolute inset-0"
-                        {...revealProps(reducedMotion, { y: 12, duration: 0.55 })}
-                      >
-                        <img className="hero-frame" src={jendela} alt="" />
-                      </motion.div>
-                    )}
+                    <img
+                      key={current.key}
+                      className="hero-scene"
+                      src={current.src}
+                      alt={`Pemandangan ${current.label}`}
+                    />
+                    <img className="hero-frame" src={jendela} alt="" />
                   </div>
-                  <Person scene={current} revealStage={revealStage} reducedMotion={reducedMotion} />
+                  <Person scene={current} />
                 </>
               )}
             </div>

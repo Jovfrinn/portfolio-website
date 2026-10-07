@@ -11,10 +11,16 @@ export default function Footer() {
     weather?.temperature !== undefined ? Math.round(weather.temperature) : null;
 
   return (
-    <footer className="w-full border-t border-[#2f5d56]/20 bg-[#f8f3e8] transition-colors duration-500">
+    <footer
+      className="w-full border-t transition-colors duration-500"
+      style={{ backgroundColor: "var(--cream)", borderTopColor: "var(--band-border)" }}
+    >
       <div className="content-container py-8 flex flex-col tablet:flex-row items-center justify-between gap-4">
         {/* Left: Jakarta Time & Live Weather */}
-        <div className="flex items-center gap-3 text-sm font-raleway font-semibold text-[#1f2a37]">
+        <div
+          className="flex items-center gap-3 text-sm font-raleway font-semibold"
+          style={{ color: "var(--ink)" }}
+        >
           {/* Clock icon */}
           <div className="flex items-center gap-1.5">
             <svg

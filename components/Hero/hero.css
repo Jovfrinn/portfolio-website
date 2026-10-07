@@ -184,7 +184,7 @@
 .hero-person {
   position: absolute;
   left: 10.8%;
-  bottom: 0;
+  bottom: -15px;
   width: 96.8%;
   aspect-ratio: 1076 / 664;
   animation: sceneIn 0.6s ease;
@@ -355,47 +355,262 @@
   }
 }
 
+/* ========================================================================= */
+/* MOBILE & TABLET (<992px): window + scenery as a full-bleed background,    */
+/* person/desk hidden, text centered on top with a theme-colored scrim.      */
+/* Desktop rules above are untouched -- everything here is scoped to this    */
+/* breakpoint range only.                                                    */
+/* ========================================================================= */
+@media (max-width: 991px) {
+  .hero-wrap {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+    overflow-x: clip;
+  }
+
+  .hero-grid {
+    position: relative;
+    display: block;
+    min-height: 85vh; /* fallback for browsers without svh support */
+    min-height: 85svh;
+    overflow: hidden;
+  }
+
+  /* Person + desk hidden entirely -- only the window + scenery remain. */
+  .hero-person {
+    display: none;
+  }
+
+  /* Illustration skeleton hidden on mobile/tablet -- only the text skeleton shows while loading. */
+  .hero-skel {
+    display: none;
+  }
+
+  /* Window + scenery becomes the full-bleed background layer. */
+  .hero-illustration-col {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: block;
+  }
+
+  .hero-stage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    aspect-ratio: auto;
+    margin: 0;
+  }
+
+  .hero-window {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* No window frame on mobile/tablet -- just the scenery filling the section. */
+  .hero-frame {
+    display: none;
+  }
+
+  /* Scrim between the background and text so the text stays legible.
+     var(--cream) already swaps per scene (cream / navy / gray) via the
+     data-scene rules above, so no per-scene color overrides are needed here
+     -- opacity on the whole pseudo-element gives the semi-transparent look
+     without needing color-mix() for broader browser support. */
+  .hero-grid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 85% 70% at center,
+      var(--cream) 0%,
+      var(--cream) 50%,
+      transparent 90%
+    );
+    opacity: 0.72;
+    transition: background-color 0.8s ease;
+  }
+
+  /* Text overlaid on top, centered both axes. */
+  .hero-text-col {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 85vh;
+    min-height: 85svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px 20px;
+    margin: 0;
+  }
+
+  .hero-badge {
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-size: 44px;
+    margin-bottom: 12px;
+  }
+
+  .hero-sub-main {
+    font-size: 21px;
+    margin-bottom: 10px;
+    justify-content: center;
+  }
+
+  .hero-sub-desc {
+    font-size: 15px;
+    margin-bottom: 24px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-btn {
+    padding: 13px 22px;
+    font-size: 15px;
+  }
+
+  /* Buttons stay side by side, wrapping to stacked only if they truly
+     don't fit (e.g. long translated labels on very narrow phones). */
+  .hero-btn-row {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Outline button needs a solid-ish backdrop over the scrim so its border
+     doesn't read as floating with nothing behind it. */
+  .hero-btn-outline {
+    background: var(--chip);
+  }
+}
+
+/* Tablet sub-range (600-991px): roomier side padding and larger type than
+   phones get, since there's more width to work with. */
+@media (min-width: 600px) and (max-width: 991px) {
+  .hero-text-col {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .hero-title {
+    font-size: 56px;
+  }
+
+  .hero-sub-main {
+    font-size: 24px;
+  }
+
+  .hero-sub-desc {
+    font-size: 17px;
+  }
+}
+
+/* ========================================================================= */
+/* NAVBAR THEMING -- applies on ALL devices now (desktop included), not just */
+/* mobile/tablet: transparent + blurred, tinted by the current scene.        */
+/* backdrop-blur-md is already a plain Tailwind class on <header> (applies   */
+/* everywhere already); these rules just make the background/text track the */
+/* scene instead of staying a fixed light color. Colors come from Header.js  */
+/* via --nav-cream/--nav-ink/--nav-chip/--nav-border (already semi-          */
+/* transparent hex+alpha strings, computed from the same scene value Hero    */
+/* uses) -- the fallback values here match the original static desktop look */
+/* so nothing breaks before JS sets the real vars.                          */
+/* ========================================================================= */
+.hero-navbar {
+  background-color: var(--nav-cream, rgba(248, 243, 232, 0.7));
+  border-bottom-color: var(--nav-border, rgba(31, 42, 55, 0.1));
+  transition: background-color 0.8s ease, border-color 0.8s ease;
+}
+
+.hero-navbar-link {
+  color: var(--nav-ink, #1f2a37);
+}
+
+.hero-navbar-chip {
+  background-color: var(--nav-chip, rgba(239, 231, 216, 0.7));
+  color: var(--nav-ink, #1f2a37);
+}
+
+.hero-navbar-drawer {
+  background-color: var(--nav-cream, rgba(248, 243, 232, 0.9));
+  border-color: var(--nav-chip, #efe7d8);
+}
+
+/* ========================================================================= */
+/* SITE-WIDE SCENE THEME -- everything below Hero (Projects/Services/About/  */
+/* Footer bands) now follows the same time-of-day/weather palette instead of */
+/* staying permanently light. Reuses --ink/--cream/--chip from globals.css   */
+/* :root (already consumed by body{}) plus the already-scaffolded-but-       */
+/* previously-unused --band-services/--band-about, so this is additive, not  */
+/* a rename. Scoped to .site-root on the page's root element; Hero's own     */
+/* internal elements keep using .hero-section-wrapper's matching override,   */
+/* so there's no conflict -- just two selectors agreeing on the same values. */
+/* ========================================================================= */
+.site-root {
+  background-color: var(--cream);
+  color: var(--ink);
+  --band-border: rgba(31, 42, 55, 0.12);
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+.site-root[data-scene="malam"] {
+  --ink: #eee9dc;
+  --cream: #0f1733;
+  --chip: #1d2850;
+  --band-services: #0c1329;
+  --band-about: #16213f;
+  --band-border: rgba(238, 233, 220, 0.14);
+}
+
+.site-root[data-scene="hujan"] {
+  --ink: #1d2733;
+  --cream: #c6cbd1;
+  --chip: #b4bbc3;
+  --band-services: #bcc1c8;
+  --band-about: #d3d7db;
+  --band-border: rgba(29, 39, 51, 0.14);
+}
+
+/* Section headings ("Selected Projects", "Services", "Tech Stack", etc.) and
+   their description paragraph sit directly on the band background (not
+   inside a white/cream card), so they need to track --ink too or they go
+   near-invisible on the malam navy band. h2 + p only matches a paragraph
+   immediately after a heading -- card-internal paragraphs (e.g. Contact's
+   "Need an internal system?" CTA text) aren't adjacent to an h2, so they
+   correctly keep their own dark color against their own light card. */
+.site-root h2 {
+  color: var(--ink);
+}
+
+.site-root h2 + p {
+  color: var(--ink);
+  opacity: 0.75;
+}
+
 /* ---------- loading skeleton (fills .hero-stage, zero layout shift) ---------- */
+/* Plain box now -- no separate window/desk/person shapes, just one flat
+   placeholder with a shimmer sweep. Hidden on mobile/tablet (see media
+   query below), where only the text skeleton shows. */
 .hero-skel {
   position: absolute;
   inset: 0;
   overflow: hidden;
   border-radius: 20px;
-}
-
-.hero-skel-window {
-  position: absolute;
-  top: 3.2%;
-  left: 20%;
-  width: 80%;
-  height: 68.5%;
-  border-radius: 16px;
   background: var(--chip);
-  border: 2px solid rgba(31, 42, 55, 0.1);
-  transition: background-color 0.8s ease;
-}
-
-.hero-skel-desk {
-  position: absolute;
-  left: 12%;
-  bottom: 6%;
-  width: 72%;
-  height: 7%;
-  border-radius: 10px;
-  background: var(--chip);
-  opacity: 0.85;
-  transition: background-color 0.8s ease;
-}
-
-.hero-skel-person {
-  position: absolute;
-  left: 32%;
-  bottom: 10%;
-  width: 46%;
-  height: 46%;
-  border-radius: 50% 50% 18% 18%;
-  background: var(--chip);
-  opacity: 0.95;
   transition: background-color 0.8s ease;
 }
 

@@ -2,12 +2,6 @@ import React from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import data from "../../data/portfolio.json";
 
-// Positions baked into binder.svg (viewBox 520x330, see its <desc>):
-// 7 ruled lines centered at y = 60 + 36*i, red margin at x=160, checkbox at x~178.
-const ROW_Y_PCT = [60, 96, 132, 168, 204, 240, 276].map((y) => (y / 330) * 100);
-const ROW_LEFT_PCT = (178 / 520) * 100;
-const ROW_RIGHT_PCT = 100 - (506 / 520) * 100;
-
 export default function HowIWork() {
   const { lang } = useLanguage();
 
@@ -15,9 +9,9 @@ export default function HowIWork() {
     data.howIWork?.title?.[lang] ||
     (lang === "en" ? "How I Work" : "Cara Saya Bekerja");
   const description = data.howIWork?.description?.[lang];
-  const steps = [...(data.howIWork?.steps || [])]
-    .sort((a, b) => a.order - b.order)
-    .slice(0, ROW_Y_PCT.length);
+  const steps = [...(data.howIWork?.steps || [])].sort(
+    (a, b) => a.order - b.order
+  );
 
   return (
     <div className="w-full flex flex-col">
@@ -34,35 +28,54 @@ export default function HowIWork() {
       </div>
 
       {/* Spiral Binder Notebook */}
-      <div className="relative w-full max-w-[760px] aspect-[520/330] mx-auto select-none">
-        <img
-          src="/vectors/notebook/binder.svg"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full filter drop-shadow-[0_10px_24px_rgba(31,42,55,0.14)]"
-        />
-
-        {steps.map((step, idx) => (
-          <div
-            key={step.id || idx}
-            className="group absolute flex items-center gap-2 tablet:gap-3"
-            style={{
-              left: `${ROW_LEFT_PCT}%`,
-              right: `${ROW_RIGHT_PCT}%`,
-              top: `${ROW_Y_PCT[idx]}%`,
-              transform: "translateY(-50%)",
-            }}
-          >
-            <img
-              src="/vectors/notebook/checkbox.svg"
-              alt="Done"
-              className="w-4 h-4 tablet:w-5 tablet:h-5 shrink-0 opacity-90 group-hover:scale-110 transition-transform"
+      <div className="relative w-full rounded-2xl bg-[#faf6ee] border border-[#dfd3c3] shadow-[0_8px_30px_rgba(31,42,55,0.07)] p-6 tablet:p-8 overflow-hidden">
+        {/* Binder spiral rings decoration on left margin */}
+        <div className="absolute left-3 top-4 bottom-4 flex flex-col justify-between items-center w-6 pointer-events-none opacity-40">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <div
+              key={i}
+              className="w-3.5 h-3 rounded-full border-2 border-[#8c8275] bg-[#dfd3c3]"
             />
-            <span className="font-kalam font-bold text-sm tablet:text-lg text-[#1f2a37] truncate">
-              {step.title[lang]}
-            </span>
+          ))}
+        </div>
+
+        {/* Notebook Ruled lines & Red margin line */}
+        <div className="pl-6 tablet:pl-10">
+          <div className="space-y-4">
+            {steps.map((step, idx) => (
+              <div
+                key={step.id || idx}
+                data-aos="fade-left"
+                data-aos-delay={idx * 60}
+                data-aos-duration="450"
+                className="group flex items-start gap-3.5 py-2 border-b border-[#ebdccb]/60 last:border-b-0 transition-colors"
+              >
+                {/* Handwritten style Checkbox */}
+                <div className="mt-0.5 shrink-0">
+                  <img
+                    src="/vectors/notebook/checkbox.svg"
+                    alt="Done"
+                    className="w-5 h-5 opacity-90 group-hover:scale-110 transition-transform"
+                  />
+                </div>
+
+                {/* Step content */}
+                <div className="flex flex-col">
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-kalam font-bold text-lg text-[#1f2a37]">
+                      {step.title[lang]}
+                    </span>
+                  </div>
+                  {step.description?.[lang] && (
+                    <span className="font-raleway font-medium text-xs tablet:text-sm text-[#5d6874] mt-0.5">
+                      {step.description[lang]}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-// Mirrors .hero-stage exactly (same parent, no independent sizing) so there
-// is no layout shift when the real illustration takes over.
+// Plain rectangular placeholder -- mirrors .hero-stage exactly (same
+// parent, no independent sizing) so there is no layout shift when the real
+// illustration takes over. Hidden on mobile/tablet via CSS (hero.css),
+// where only the text skeleton shows.
 export default function HeroSkeleton({ reducedMotion }) {
   return (
     <motion.div
@@ -10,10 +12,6 @@ export default function HeroSkeleton({ reducedMotion }) {
       aria-hidden="true"
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-    >
-      <div className="hero-skel-window" />
-      <div className="hero-skel-desk" />
-      <div className="hero-skel-person" />
-    </motion.div>
+    />
   );
 }

@@ -19,16 +19,11 @@ const STAMP_FX = {
 };
 
 const OPEN_LAYERS = "/vectors/contact/open";
-// Timings lifted from references/contact/open/demo.html:
-// opening is staged (seal breaks -> closed flap collapses -> open flap reveals),
-// closing reverts everything together, quickly.
 const FLAP_ORIGIN = "50% 39.15%";
 
 export default function Contact() {
   const { lang } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
-  // Mouse users: hover opens/closes. Touch users: tap toggles (no real hover state).
-  // Decided once per device so a tap doesn't fight a synthetic hover event.
   const supportsHoverRef = React.useRef(
     typeof window !== "undefined" && window.matchMedia?.("(hover: hover)").matches,
   );
@@ -64,7 +59,13 @@ export default function Contact() {
       </div>
 
       {/* Envelope & Stamps Section */}
-      <div className="rounded-2xl bg-white border border-[#e5dac8] p-5 tablet:p-6 shadow-[0_4px_24px_rgba(31,42,55,0.05)] mb-6">
+      <motion.div
+        initial={{ opacity: 0, y: 30, scale: 0.96 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="rounded-2xl bg-white border border-[#e5dac8] p-5 tablet:p-6 shadow-[0_4px_24px_rgba(31,42,55,0.05)] mb-6"
+      >
         <div
           className="envelope-container py-6 cursor-pointer select-none"
           onMouseEnter={() => supportsHoverRef.current && setIsOpen(true)}
@@ -76,9 +77,6 @@ export default function Contact() {
           onClick={() => !supportsHoverRef.current && setIsOpen((v) => !v)}
         >
           <div className="relative w-full max-w-[300px] aspect-[440/470] mx-auto">
-            {/* Envelope stack: gentle continuous float while open. Layers bottom to top
-                (see references/contact/open/README.md): back, flap-open, front pocket,
-                flap-closed, seal. Stamps render as a sibling above everything. */}
             <motion.div
               className="absolute inset-0 filter drop-shadow-md"
               animate={
@@ -159,8 +157,7 @@ export default function Contact() {
               </div>
             </motion.div>
 
-            {/* Stamps: hidden inside the envelope, burst out above it (never tucked
-                behind) + float independently once open */}
+            {/* Stamps */}
             {connectSocials.map((social, idx) => {
               const key = social.title?.toLowerCase();
               const stampSvg = STAMP_SVGS[key];
@@ -189,7 +186,6 @@ export default function Contact() {
                     ease: [0.16, 1, 0.3, 1],
                   }}
                 >
-                  {/* Inner wrapper: independent continuous bob, decoupled from entrance transform */}
                   <motion.span
                     className="flex flex-col items-center"
                     animate={{ y: [0, -7, 0] }}
@@ -224,11 +220,16 @@ export default function Contact() {
                 : "Arahkan kursor atau ketuk amplop untuk membukanya"}
           </p>
         </div>
-      </div>
+      </motion.div>
 
       {/* Postcard CTA Card: "Need an internal system?" */}
-      <div className="relative w-full rounded-2xl bg-[#faf6ee] border-2 border-dashed border-[#dfd3c3] p-6 tablet:p-8 shadow-[0_4px_20px_rgba(31,42,55,0.04)] overflow-hidden">
-        {/* Postcard Stamp Accent */}
+      <motion.div
+        initial={{ opacity: 0, y: 30, scale: 0.96 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full rounded-2xl bg-[#faf6ee] border-2 border-dashed border-[#dfd3c3] p-6 tablet:p-8 shadow-[0_4px_20px_rgba(31,42,55,0.04)] overflow-hidden"
+      >
         <div className="absolute right-6 top-6 hidden tablet:block opacity-70">
           <div className="w-14 h-16 border border-[#2f5d56]/30 bg-white/70 rounded p-1 flex flex-col items-center justify-center text-center">
             <span className="text-[9px] font-nunito font-bold text-[#2f5d56]">
@@ -247,7 +248,6 @@ export default function Contact() {
               "From purchase requests to approval flows custom built for your company's workflows. Let's discuss."}
           </p>
 
-          {/* Buttons: Email + FastWork + Projects.co.id */}
           <div className="flex flex-wrap items-center gap-3">
             <a
               href={emailHref}
@@ -280,7 +280,7 @@ export default function Contact() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

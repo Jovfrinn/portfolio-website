@@ -6,7 +6,6 @@ const sprite = (part, key) => `${A}/${part}-${key}.webp`;
 
 const WEATHER_WAIT_MS = 800;
 const PRELOAD_HARD_CAP_MS = 6000;
-const STAGE_GAP_MS = 300;
 
 function getSceneByHourLocal(hour) {
   if (hour >= 5 && hour < 10) return "pagi";
@@ -65,15 +64,17 @@ export function usePrefersReducedMotion() {
 }
 
 /**
- * Resolves which hero scene to show, preloads its assets before revealing
- * anything, and drives the staged layer-by-layer reveal once per page visit.
+ * Resolves which hero scene to show and preloads its assets before
+ * revealing anything (no broken-image flash, no layout shift).
  *
  * Scene resolution: hour-of-day decides the default scene immediately;
  * the weather fetch already running in WeatherContext gets up to 800ms to
  * confirm rain before we commit to an initial scene. If rain is confirmed
  * later (after something is already showing), we preload the rain assets
  * in the background and crossfade via the existing per-scene CSS animation
- * (keyed remount) instead of replaying the staged reveal.
+ * (keyed remount, .hero-scene/.hero-person's own `sceneIn` keyframe) --
+ * same mechanism handles the very first reveal too, so there's no separate
+ * staged-reveal system to maintain here.
  */
 export function useHeroReveal() {
   const { weather, isRaining } = useWeather();
@@ -81,7 +82,6 @@ export function useHeroReveal() {
 
   const [ready, setReady] = useState(false);
   const [scene, setScene] = useState(null);
-  const [revealStage, setRevealStage] = useState(0);
 
   const settledRef = useRef(false);
   const cancelledRef = useRef(false);
@@ -135,24 +135,5 @@ export function useHeroReveal() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [weather, isRaining, scene]);
 
-  // Staged layer-by-layer reveal, once per page visit only.
-  const hasStagedRef = useRef(false);
-  useEffect(() => {
-    if (!ready || hasStagedRef.current) return;
-    hasStagedRef.current = true;
-
-    if (reducedMotion) {
-      setRevealStage(5);
-      return;
-    }
-
-    setRevealStage(1);
-    const timers = [];
-    for (let i = 0; i < 4; i++) {
-      timers.push(setTimeout(() => setRevealStage(i + 2), STAGE_GAP_MS * (i + 1)));
-    }
-    return () => timers.forEach(clearTimeout);
-  }, [ready, reducedMotion]);
-
-  return { ready, scene, revealStage, reducedMotion };
+  return { ready, scene, reducedMotion };
 }
