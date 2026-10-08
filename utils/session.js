@@ -2,7 +2,7 @@ import { withIronSessionApiRoute, withIronSessionSsr } from "iron-session/next";
 
 export const sessionOptions = {
   cookieName: "portfolio_admin_session",
-  password: process.env.SESSION_SECRET,
+  password: process.env.SESSION_SECRET || "fallback_secret_must_be_at_least_32_characters_long",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,
