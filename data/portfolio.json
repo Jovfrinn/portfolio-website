@@ -231,16 +231,8 @@
       ],
       "link": [
         {
-          "label": "Frontend",
-          "url": "https://github.com/Jovfrinn/sfa-frontend-web"
-        },
-        {
-          "label": "Backend",
-          "url": "https://github.com/Jovfrinn/sfa-backend"
-        },
-        {
-          "label": "Mobile",
-          "url": "https://github.com/Jovfrinn/sfa-frontend-mobile"
+          "label": "Live",
+          "url": "https://sfa.jovfrin.my.id/"
         }
       ],
       "featured": true,
