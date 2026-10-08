@@ -38,7 +38,7 @@ export default function About() {
           <div className="relative w-20 h-20 tablet:w-24 tablet:h-24 rounded-xl overflow-hidden shrink-0 bg-[#efe7d8] border-2 border-[#dfd3c3] shadow-inner">
             {!profileImgError ? (
               <img
-                src="/portfolio/profile.jpg"
+                src="/portfolio/profile.png"
                 alt={data.name}
                 className="w-full h-full object-cover"
                 onError={() => setProfileImgError(true)}
@@ -92,7 +92,7 @@ export default function About() {
                 <div className="w-6 h-6 rounded-md bg-[#efe7d8] flex items-center justify-center shrink-0 overflow-hidden">
                   {!univerzLogoError ? (
                     <img
-                      src="/portfolio/univerz-logo.png"
+                      src="/portfolio/univerz-logo.jpeg"
                       alt="Univerz"
                       className="w-full h-full object-contain"
                       onError={() => setUniverzLogoError(true)}
