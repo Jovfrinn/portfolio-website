@@ -65,8 +65,23 @@ export async function publishToGithub({ portfolioJson, uploads, deletes, expecte
     treeEntries.push({ path: upload.path, mode: "100644", type: "blob", sha: blob.data.sha });
   }
 
-  for (const filePath of deletes) {
-    treeEntries.push({ path: filePath, mode: "100644", type: "blob", sha: null });
+  // GitHub rejects the tree (BadObjectState) if a path is both written and deleted,
+  // or if a deleted path doesn't exist in the base tree, so only delete files that
+  // actually exist and aren't being re-uploaded.
+  const uploadedPaths = new Set(uploads.map((upload) => upload.path));
+  const pendingDeletes = deletes.filter((filePath) => !uploadedPaths.has(filePath));
+  if (pendingDeletes.length > 0) {
+    const { data: baseTree } = await octokit.rest.git.getTree({
+      ...params,
+      tree_sha: baseTreeSha,
+      recursive: "true",
+    });
+    const existingPaths = new Set(baseTree.tree.filter((entry) => entry.type === "blob").map((entry) => entry.path));
+    for (const filePath of pendingDeletes) {
+      if (baseTree.truncated || existingPaths.has(filePath)) {
+        treeEntries.push({ path: filePath, mode: "100644", type: "blob", sha: null });
+      }
+    }
   }
 
   const { data: newTree } = await octokit.rest.git.createTree({

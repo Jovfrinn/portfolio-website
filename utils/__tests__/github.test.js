@@ -1,5 +1,6 @@
 /** @jest-environment node */
-jest.mock("@octokit/rest");
+// Factory mock: @octokit/rest is ESM-only, so automocking (which loads the real module) fails under Jest.
+jest.mock("@octokit/rest", () => ({ Octokit: jest.fn() }));
 const { Octokit } = require("@octokit/rest");
 
 beforeAll(() => {
@@ -17,6 +18,15 @@ function mockOctokit(overrides) {
           getRef: jest.fn().mockResolvedValue({ data: { object: { sha: "current-sha" } } }),
           getCommit: jest.fn().mockResolvedValue({ data: { tree: { sha: "tree-sha" } } }),
           createBlob: jest.fn().mockResolvedValue({ data: { sha: "blob-sha" } }),
+          getTree: jest.fn().mockResolvedValue({
+            data: {
+              truncated: false,
+              tree: [
+                { path: "public/images/projects/a/old.webp", type: "blob" },
+                { path: "public/images/projects/a/cover.webp", type: "blob" },
+              ],
+            },
+          }),
           createTree: jest.fn().mockResolvedValue({ data: { sha: "new-tree-sha" } }),
           createCommit: jest.fn().mockResolvedValue({ data: { sha: "new-commit-sha" } }),
           updateRef: jest.fn().mockResolvedValue({}),
@@ -65,4 +75,34 @@ test("publishToGithub builds a tree with sha:null entries for deletes", async ()
   expect(deleteEntry.sha).toBeNull();
   const addEntry = treeArg.tree.find((entry) => entry.path === "public/images/projects/a/cover.webp");
   expect(addEntry.sha).toBe("blob-sha");
+});
+
+test("publishToGithub skips deletes for paths that are re-uploaded in the same publish", async () => {
+  const impl = mockOctokit();
+  const { publishToGithub } = require("../github");
+  await publishToGithub({
+    portfolioJson: { name: "x" },
+    uploads: [{ path: "public/images/projects/a/cover.webp", base64: "abc" }],
+    deletes: ["public/images/projects/a/cover.webp"],
+    expectedBaseSha: "current-sha",
+  });
+
+  const treeArg = impl.rest.git.createTree.mock.calls[0][0];
+  const entries = treeArg.tree.filter((entry) => entry.path === "public/images/projects/a/cover.webp");
+  expect(entries).toHaveLength(1);
+  expect(entries[0].sha).toBe("blob-sha");
+});
+
+test("publishToGithub skips deletes for paths missing from the base tree", async () => {
+  const impl = mockOctokit();
+  const { publishToGithub } = require("../github");
+  await publishToGithub({
+    portfolioJson: { name: "x" },
+    uploads: [],
+    deletes: ["public/images/projects/a/never-published.webp"],
+    expectedBaseSha: "current-sha",
+  });
+
+  const treeArg = impl.rest.git.createTree.mock.calls[0][0];
+  expect(treeArg.tree.find((entry) => entry.path === "public/images/projects/a/never-published.webp")).toBeUndefined();
 });

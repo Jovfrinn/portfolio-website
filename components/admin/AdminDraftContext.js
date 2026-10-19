@@ -52,6 +52,8 @@ export function AdminDraftProvider({ children }) {
   const addPendingUpload = useCallback((uploadPath, blob) => {
     const previewUrl = URL.createObjectURL(blob);
     setPendingUploads((prev) => [...prev.filter((u) => u.path !== uploadPath), { path: uploadPath, blob, previewUrl }]);
+    // Re-uploading to a path staged for deletion overwrites it, so the delete must be dropped.
+    setPendingDeletes((prev) => prev.filter((p) => p !== uploadPath));
     return previewUrl;
   }, []);
 
