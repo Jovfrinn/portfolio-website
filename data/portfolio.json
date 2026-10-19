@@ -418,28 +418,36 @@
       "thumbnailThumb": "/images/projects/cocokin-ai/cover-thumb.webp",
       "gallery": [
         {
-          "id": "img-1792391343419",
-          "src": "/images/projects/cocokin-ai/img-1792391343419.webp",
-          "thumbSrc": "/images/projects/cocokin-ai/img-1792391343419-thumb.webp",
-          "captionEn": "Methodology page: the three steps behind Cocokin.ai, which are setting preferences, sharing the quiz, and measuring compatibility with Cosine Similarity.",
-          "captionId": "Halaman Metodologi: tiga langkah cara kerja Cocokin.ai, yaitu menentukan preferensi, membagikan kuis, dan mengukur kecocokan dengan Cosine Similarity.",
+          "id": "img-1792392747138",
+          "src": "/images/projects/cocokin-ai/img-1792392747138.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392747138-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
           "order": 0
         },
         {
-          "id": "img-1792391588339",
-          "src": "/images/projects/cocokin-ai/img-1792391588339.webp",
-          "thumbSrc": "/images/projects/cocokin-ai/img-1792391588339-thumb.webp",
-          "captionEn": "Dashboard: manage your quizzes, copy the share link, and see everyone who has responded, along with their match percentage and location.",
-          "captionId": "Dashboard: tempat mengelola kuis, menyalin link untuk dibagikan, dan melihat daftar siapa saja yang sudah mengisi, lengkap dengan persentase kecocokan dan lokasinya.",
+          "id": "img-1792392753304",
+          "src": "/images/projects/cocokin-ai/img-1792392753304.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392753304-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
           "order": 1
         },
         {
-          "id": "img-1792391610938",
-          "src": "/images/projects/cocokin-ai/img-1792391610938.webp",
-          "thumbSrc": "/images/projects/cocokin-ai/img-1792391610938-thumb.webp",
-          "captionEn": "Create Quiz: write a title and a list of statements (at least 5). The creator then rates their own answers, which become the reference vector.",
-          "captionId": "Buat Ruang Uji: menulis judul dan daftar pernyataan kuis (minimal 5). Setelah itu, pembuat kuis memberi nilai jawabannya sendiri sebagai vektor acuan.",
+          "id": "img-1792392757053",
+          "src": "/images/projects/cocokin-ai/img-1792392757053.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392757053-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
           "order": 2
+        },
+        {
+          "id": "img-1792392762121",
+          "src": "/images/projects/cocokin-ai/img-1792392762121.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392762121-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
+          "order": 3
         }
       ],
       "role": {
