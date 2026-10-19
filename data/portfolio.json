@@ -416,7 +416,40 @@
       },
       "thumbnail": "/images/projects/cocokin-ai/cover.webp",
       "thumbnailThumb": "/images/projects/cocokin-ai/cover-thumb.webp",
-      "gallery": [],
+      "gallery": [
+        {
+          "id": "img-1792392747138",
+          "src": "/images/projects/cocokin-ai/img-1792392747138.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392747138-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
+          "order": 0
+        },
+        {
+          "id": "img-1792392753304",
+          "src": "/images/projects/cocokin-ai/img-1792392753304.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392753304-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
+          "order": 1
+        },
+        {
+          "id": "img-1792392757053",
+          "src": "/images/projects/cocokin-ai/img-1792392757053.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392757053-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
+          "order": 2
+        },
+        {
+          "id": "img-1792392762121",
+          "src": "/images/projects/cocokin-ai/img-1792392762121.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392762121-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
+          "order": 3
+        }
+      ],
       "role": {
         "en": "",
         "id": ""
