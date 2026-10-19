@@ -196,9 +196,18 @@
         "en": "Mobile first CRM for FMCG field sales: GPS check-in, ordering, stock tracking, and journey plans with supervisor approval flows.",
         "id": "Aplikasi untuk salesman lapangan industri FMCG: GPS check-in ke outlet, input stok/penjualan/order per kunjungan, journey plan dengan approval flow SPV, dan fitur CRM seperti Customer 360, Interaction Log, dan Follow-up Reminder."
       },
-      "thumbnail": null,
-      "thumbnailThumb": null,
-      "gallery": [],
+      "thumbnail": "/images/projects/field-sales-crm/cover.webp",
+      "thumbnailThumb": "/images/projects/field-sales-crm/cover-thumb.webp",
+      "gallery": [
+        {
+          "id": "img-1792395175743",
+          "src": "/images/projects/field-sales-crm/img-1792395175743.webp",
+          "thumbSrc": "/images/projects/field-sales-crm/img-1792395175743-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
+          "order": 0
+        }
+      ],
       "role": {
         "en": "",
         "id": ""
