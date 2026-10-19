@@ -249,6 +249,104 @@
       "order": 0
     },
     {
+      "id": "5",
+      "slug": "cocokin-ai",
+      "path": "~/cocokin",
+      "title": {
+        "en": "Cocokin.ai - Vector Similarity Relationship Calculator",
+        "id": "Cocokin.ai - Kalkulator Keselarasan Hubungan Berbasis Vektor"
+      },
+      "description": {
+        "en": "A premium web application that measures mental alignment and shared principles between two users using Cosine Similarity on N-dimensional preferences.",
+        "id": "Aplikasi web premium untuk mengukur tingkat keselarasan dan kesamaan prinsip antara dua pengguna menggunakan metode Cosine Similarity dalam ruang vektor N-dimensi."
+      },
+      "thumbnail": "/images/projects/cocokin-ai/cover.webp",
+      "thumbnailThumb": "/images/projects/cocokin-ai/cover-thumb.webp",
+      "gallery": [
+        {
+          "id": "img-1792392747138",
+          "src": "/images/projects/cocokin-ai/img-1792392747138.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392747138-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
+          "order": 0
+        },
+        {
+          "id": "img-1792392753304",
+          "src": "/images/projects/cocokin-ai/img-1792392753304.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392753304-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
+          "order": 1
+        },
+        {
+          "id": "img-1792392757053",
+          "src": "/images/projects/cocokin-ai/img-1792392757053.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392757053-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
+          "order": 2
+        },
+        {
+          "id": "img-1792392762121",
+          "src": "/images/projects/cocokin-ai/img-1792392762121.webp",
+          "thumbSrc": "/images/projects/cocokin-ai/img-1792392762121-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
+          "order": 3
+        }
+      ],
+      "role": {
+        "en": "",
+        "id": ""
+      },
+      "duration": "",
+      "problem": {
+        "en": "",
+        "id": ""
+      },
+      "solution": {
+        "en": "",
+        "id": ""
+      },
+      "features": {
+        "en": [],
+        "id": []
+      },
+      "impact": {
+        "en": [],
+        "id": []
+      },
+      "tags": [
+        "React JS",
+        "TypeScript",
+        "Tailwind CSS",
+        "NestJS",
+        "Prisma ORM",
+        "PostgreSQL",
+        "Google OAuth",
+        "Recharts",
+        "Cosine Similarity"
+      ],
+      "link": [
+        {
+          "label": "Frontend",
+          "url": "https://github.com/Jovfrinn/cocokin-frontend"
+        },
+        {
+          "label": "Backend",
+          "url": "https://github.com/Jovfrinn/cocokin-backend"
+        },
+        {
+          "label": "Live",
+          "url": "https://cocokin.jovfrin.my.id"
+        }
+      ],
+      "featured": false,
+      "published": true,
+      "order": 4
+    },
+    {
       "id": "2",
       "slug": "enterprise-lms",
       "path": "~/edutrack",
@@ -410,104 +508,6 @@
       "featured": false,
       "published": true,
       "order": 3
-    },
-    {
-      "id": "5",
-      "slug": "cocokin-ai",
-      "path": "~/cocokin",
-      "title": {
-        "en": "Cocokin.ai - Vector Similarity Relationship Calculator",
-        "id": "Cocokin.ai - Kalkulator Keselarasan Hubungan Berbasis Vektor"
-      },
-      "description": {
-        "en": "A premium web application that measures mental alignment and shared principles between two users using Cosine Similarity on N-dimensional preferences.",
-        "id": "Aplikasi web premium untuk mengukur tingkat keselarasan dan kesamaan prinsip antara dua pengguna menggunakan metode Cosine Similarity dalam ruang vektor N-dimensi."
-      },
-      "thumbnail": "/images/projects/cocokin-ai/cover.webp",
-      "thumbnailThumb": "/images/projects/cocokin-ai/cover-thumb.webp",
-      "gallery": [
-        {
-          "id": "img-1792392747138",
-          "src": "/images/projects/cocokin-ai/img-1792392747138.webp",
-          "thumbSrc": "/images/projects/cocokin-ai/img-1792392747138-thumb.webp",
-          "captionEn": "",
-          "captionId": "",
-          "order": 0
-        },
-        {
-          "id": "img-1792392753304",
-          "src": "/images/projects/cocokin-ai/img-1792392753304.webp",
-          "thumbSrc": "/images/projects/cocokin-ai/img-1792392753304-thumb.webp",
-          "captionEn": "",
-          "captionId": "",
-          "order": 1
-        },
-        {
-          "id": "img-1792392757053",
-          "src": "/images/projects/cocokin-ai/img-1792392757053.webp",
-          "thumbSrc": "/images/projects/cocokin-ai/img-1792392757053-thumb.webp",
-          "captionEn": "",
-          "captionId": "",
-          "order": 2
-        },
-        {
-          "id": "img-1792392762121",
-          "src": "/images/projects/cocokin-ai/img-1792392762121.webp",
-          "thumbSrc": "/images/projects/cocokin-ai/img-1792392762121-thumb.webp",
-          "captionEn": "",
-          "captionId": "",
-          "order": 3
-        }
-      ],
-      "role": {
-        "en": "",
-        "id": ""
-      },
-      "duration": "",
-      "problem": {
-        "en": "",
-        "id": ""
-      },
-      "solution": {
-        "en": "",
-        "id": ""
-      },
-      "features": {
-        "en": [],
-        "id": []
-      },
-      "impact": {
-        "en": [],
-        "id": []
-      },
-      "tags": [
-        "React JS",
-        "TypeScript",
-        "Tailwind CSS",
-        "NestJS",
-        "Prisma ORM",
-        "PostgreSQL",
-        "Google OAuth",
-        "Recharts",
-        "Cosine Similarity"
-      ],
-      "link": [
-        {
-          "label": "Frontend",
-          "url": "https://github.com/Jovfrinn/cocokin-frontend"
-        },
-        {
-          "label": "Backend",
-          "url": "https://github.com/Jovfrinn/cocokin-backend"
-        },
-        {
-          "label": "Live",
-          "url": "https://cocokin.jovfrin.my.id"
-        }
-      ],
-      "featured": false,
-      "published": true,
-      "order": 4
     }
   ],
   "services": [
