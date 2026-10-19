@@ -72,7 +72,11 @@ export default function ProjectDetailPage({ project, adjacent }) {
         <Header />
       </div>
 
-      <div className="content-container pt-12 pb-24">
+      {/* Header is position:fixed, so offset content by its measured height (set by Header). */}
+      <div
+        className="content-container pb-24"
+        style={{ paddingTop: "calc(var(--header-h, 96px) + 3rem)" }}
+      >
         <button
           onClick={() => router.push("/#projects")}
           type="button"
