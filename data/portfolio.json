@@ -358,9 +358,18 @@
         "en": "A web-based employee training platform that helps companies manage courses, assess competencies, and monitor HR progress centrally.",
         "id": "Platform pelatihan karyawan berbasis web yang membantu perusahaan mengelola kursus, menilai kompetensi, dan memantau perkembangan SDM secara terpusat."
       },
-      "thumbnail": null,
-      "thumbnailThumb": null,
-      "gallery": [],
+      "thumbnail": "/images/projects/enterprise-lms/cover.webp",
+      "thumbnailThumb": "/images/projects/enterprise-lms/cover-thumb.webp",
+      "gallery": [
+        {
+          "id": "img-1792396040720",
+          "src": "/images/projects/enterprise-lms/img-1792396040720.webp",
+          "thumbSrc": "/images/projects/enterprise-lms/img-1792396040720-thumb.webp",
+          "captionEn": "",
+          "captionId": "",
+          "order": 0
+        }
+      ],
       "role": {
         "en": "",
         "id": ""
