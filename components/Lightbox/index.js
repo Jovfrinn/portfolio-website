@@ -46,7 +46,7 @@ export default function Lightbox({ images, startIndex, onClose }) {
       )}
 
       <div className="relative w-[90vw] h-[70vh] max-w-4xl">
-        <Image src={current.src} alt={current.captionEn || ""} layout="fill" objectFit="contain" sizes="90vw" />
+        <Image src={current.src} alt={current.captionEn || ""} layout="fill" objectFit="contain" sizes="90vw" quality={90} />
       </div>
 
       {(current.captionEn || current.captionId) && (

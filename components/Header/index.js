@@ -1,5 +1,6 @@
 import React, { useState, useRef, useLayoutEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useLanguage } from "../../context/LanguageContext";
 import { useWeather } from "../../context/WeatherContext";
 import data from "../../data/portfolio.json";
@@ -23,6 +24,7 @@ const withAlpha = (hex, alphaHex) => `${hex}${alphaHex}`;
 export default function Header() {
   const { lang, setLang } = useLanguage();
   const { scene } = useWeather();
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const headerRef = useRef(null);
 
@@ -41,20 +43,24 @@ export default function Header() {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { label: data.nav[lang].home, href: "#hero" },
-    { label: data.nav[lang].project, href: "#projects" },
-    { label: data.nav[lang].about, href: "#about" },
-    { label: data.nav[lang].contact, href: "#contact" },
+    { label: data.nav[lang].home, href: "/" },
+    { label: data.nav[lang].project, href: "/#projects" },
+    { label: data.nav[lang].about, href: "/#about" },
+    { label: data.nav[lang].contact, href: "/#contact" },
   ];
 
   const resumeUrl = data.resumeFiles?.[lang] || "/images/Resume-(English).pdf";
 
+  // On the home page, links smooth-scroll in place; elsewhere they fall
+  // through to a normal navigation to "/" (or "/#section").
   const handleScrollTo = (e, href) => {
-    if (href.startsWith("#")) {
+    setMobileMenuOpen(false);
+    if (router.pathname !== "/") return;
+    if (href === "/" || href.startsWith("/#")) {
       e.preventDefault();
-      setMobileMenuOpen(false);
-      const targetId = href.replace("#", "");
-      if (targetId === "hero") {
+      const targetId = href.replace("/", "").replace("#", "");
+      if (window.location.hash) history.replaceState(null, "", "/");
+      if (!targetId) {
         window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
@@ -87,25 +93,26 @@ export default function Header() {
     >
       <div className="content-container py-6 flex items-center justify-between">
         {/* Logo */}
-        <a
-          href="#hero"
-          onClick={(e) => handleScrollTo(e, "#hero")}
-          className="hero-navbar-link font-nunito font-extrabold text-2xl tracking-tight text-[#1f2a37] hover:opacity-85 transition-opacity"
-        >
-          {data.name}
-        </a>
+        <Link href="/">
+          <a
+            onClick={(e) => handleScrollTo(e, "/")}
+            className="hero-navbar-link font-nunito font-extrabold text-2xl tracking-tight text-[#1f2a37] hover:opacity-85 transition-opacity"
+          >
+            {data.name}
+          </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden laptop:flex items-center gap-8">
           {navLinks.map((item, idx) => (
-            <a
-              key={idx}
-              href={item.href}
-              onClick={(e) => handleScrollTo(e, item.href)}
-              className="hero-navbar-link font-raleway font-semibold text-[15px] text-[#1f2a37] opacity-80 hover:opacity-100 hover:text-[#2f5d56] transition-all"
-            >
-              {item.label}
-            </a>
+            <Link key={idx} href={item.href}>
+              <a
+                onClick={(e) => handleScrollTo(e, item.href)}
+                className="hero-navbar-link font-raleway font-semibold text-[15px] text-[#1f2a37] opacity-80 hover:opacity-100 hover:text-[#2f5d56] transition-all"
+              >
+                {item.label}
+              </a>
+            </Link>
           ))}
 
           {/* Resume link */}
@@ -211,14 +218,14 @@ export default function Header() {
         <div className="hero-navbar-drawer laptop:hidden px-6 py-4 bg-[#f8f3e8] border-b border-[#efe7d8] shadow-lg">
           <div className="flex flex-col gap-4">
             {navLinks.map((item, idx) => (
-              <a
-                key={idx}
-                href={item.href}
-                onClick={(e) => handleScrollTo(e, item.href)}
-                className="hero-navbar-link font-raleway font-semibold text-lg text-[#1f2a37] py-1"
-              >
-                {item.label}
-              </a>
+              <Link key={idx} href={item.href}>
+                <a
+                  onClick={(e) => handleScrollTo(e, item.href)}
+                  className="hero-navbar-link font-raleway font-semibold text-lg text-[#1f2a37] py-1"
+                >
+                  {item.label}
+                </a>
+              </Link>
             ))}
             <a
               href={resumeUrl}

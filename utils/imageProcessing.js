@@ -19,6 +19,8 @@ function resizeToCanvas(bitmap, maxWidth) {
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext("2d");
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
   ctx.drawImage(bitmap, 0, 0, width, height);
   return canvas;
 }
@@ -35,9 +37,10 @@ function canvasToWebpBlob(canvas, quality) {
 
 export async function processImageToWebp(file, options) {
   const opts = options || {};
-  const thumbWidth = opts.thumbWidth || 600;
-  const fullWidth = opts.fullWidth || 1600;
-  const quality = opts.quality || 0.8;
+  // Thumbs render at up to ~50vw on retina screens, so they need ~1200px to stay sharp.
+  const thumbWidth = opts.thumbWidth || 1200;
+  const fullWidth = opts.fullWidth || 2400;
+  const quality = opts.quality || 0.92;
 
   const bitmap = await createImageBitmap(file);
   const thumbCanvas = resizeToCanvas(bitmap, thumbWidth);

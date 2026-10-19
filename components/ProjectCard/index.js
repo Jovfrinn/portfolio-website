@@ -46,6 +46,7 @@ export default function ProjectCard({ project, lang, featuredSpan }) {
               layout="fill"
               objectFit="cover"
               sizes="(min-width: 1024px) 50vw, 100vw"
+              quality={90}
               className="group-hover:scale-[1.02] transition-transform duration-500"
             />
           </div>

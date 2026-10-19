@@ -150,6 +150,7 @@ export default function ProjectDetailPage({ project, adjacent }) {
                     layout="fill"
                     objectFit="cover"
                     loading="lazy"
+                    quality={90}
                     sizes="33vw"
                   />
                 </button>
